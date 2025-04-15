@@ -1,0 +1,125 @@
+/* PaymentMethods.css */
+.payment-container {
+  background: linear-gradient(135deg, #004d40 0%, #00796b 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-top: 50px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.payment-wrapper {
+  background-color: #00ab8e;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  width: 100%;
+  max-width: 960px;
+}
+
+.payment-title {
+  color: white;
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.payment-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.payment-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 15px;
+  min-width: 200px;
+  transition: transform 0.3s;
+}
+
+.img34 {
+  width: 100%; /* S'adapte à la largeur du conteneur */
+  max-width: 800px; /* Largeur maximale */
+  height: 110%; /* Maintient le ratio hauteur/largeur */
+}
+
+.payment-icon {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.payment-option:hover {
+  transform: translateY(-10px);
+}
+
+.payment-icon svg {
+  width: 60px;
+  height: 60px;
+  color: white;
+}
+
+.option-title {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.option-description {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 20px;
+  flex-grow: 1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.option-button {
+  background-color: #ff8f00;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.option-button:hover {
+  background-color: #f57c00;
+  transform: translateY(-2px);
+}
+
+.divider {
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 0 10px;
+}
+
+@media (max-width: 768px) {
+  .payment-options {
+    flex-direction: column;
+  }
+
+  .payment-option {
+    margin-bottom: 30px;
+  }
+
+  .divider {
+    width: 80%;
+    height: 1px;
+    margin: 15px 0;
+  }
+}

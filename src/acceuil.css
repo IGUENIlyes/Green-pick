@@ -3,7 +3,6 @@
   padding: 0px;
   box-sizing: border-box;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  
 }
 
 body {
@@ -27,8 +26,8 @@ img {
 
 /* COULEURS PRINCIPALES */
 :root {
-  --primary-color: #006948;
-  --secondary-color: #00a67e;
+  --primary-color: #056748d7;
+  --secondary-color: #022c22ee;
   --accent-color: #ff8c00;
   --text-color: #333;
   --light-color: #fff;
@@ -41,8 +40,7 @@ header {
   left: 0;
   width: 100%;
   height: 80px; /* Hauteur fixe du header */
-  background-color: #034b41;
-
+  background-color: #02463d;
   color: var(--light-color);
   padding: 1.5rem 2rem;
   display: flex;
@@ -58,11 +56,13 @@ header {
   color: white;
   display: flex;
   align-items: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Added text shadow for logo */
 }
 
 .logo i {
   margin-right: 0.5rem;
   color: var(--accent-color);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Added subtle shadow for icon */
 }
 
 nav ul {
@@ -74,13 +74,23 @@ nav ul {
 nav a {
   color: white;
   font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); /* Added text shadow for nav links */
+  transition: color 0.3s, text-shadow 0.3s; /* Smooth transition for hover effect */
 }
 
 nav a:hover {
   color: var(--accent-color);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); /* Enhanced shadow on hover */
 }
 
 /* SECTION HÉRO */
+.image-container {
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 90px;
+}
+
 .hero {
   color: white;
   background-image: url("forme sin.png"); /* Image de fond */
@@ -88,6 +98,7 @@ nav a:hover {
   min-height: 90vh;
   display: flex;
   align-items: center;
+  position: relative;
 
   padding: 0 4rem;
 }
@@ -124,11 +135,11 @@ body {
 
 .hero-image {
   position: absolute;
-  right: 0%;
+  right: 0;
   z-index: 3;
-  top: 8.3%;
-  max-width: 100%;
-  height: 108%;
+  top: 8.5%;
+  width: 800px;
+  height: 600px;
   margin-top: 200px;
   margin-left: 140px;
 
@@ -293,7 +304,7 @@ body {
 
 /*   FOOTER   */
 footer {
-  background-color: #004d3d;
+  background-color: #330569;
   color: white;
   padding: 3rem 4rem;
   text-align: center;
@@ -484,9 +495,6 @@ body {
 .hero {
   padding-left: 40px;
 }
-.hero #cote {
-  left: 20%;
-}
 
 html {
   scroll-behavior: smooth; /* Active le scroll fluide */
@@ -599,10 +607,9 @@ body {
 }
 
 .why_choose {
-  
- text-align: center;
- letter-spacing: 2px;
-  margin: 0 auto;          /* pour les éléments bloc */
+  text-align: center;
+  letter-spacing: 2px;
+  margin: 0 auto; /* pour les éléments bloc */
   max-width: 500px;
   font-size: 25px;
   font-weight: bold;
@@ -624,4 +631,119 @@ body {
 #ruh {
   margin-top: 40px;
   margin-left: 180px;
+}
+
+.footer {
+  background-color: #0a413b;
+  color: white;
+  padding: 30px 0;
+  font-family: Arial, sans-serif;
+  position: sticky;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-logo {
+  flex: 1;
+}
+
+.footer-logo img {
+  max-width: 120px;
+}
+
+.footer-links {
+  flex: 2;
+  padding: 0 20px;
+  border-left: 1px solid #1a5851;
+  border-right: 1px solid #1a5851;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+/* * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        } */
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+y .footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-contact {
+  flex: 1;
+  text-align: center;
+}
+
+.footer-contact h3 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.footer-contact p {
+  font-size: 14px;
+}
+
+.footer-social {
+  flex: 1;
+  text-align: center;
+}
+
+.footer-social h3 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.footer-copyright {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 15px;
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-logo,
+  .footer-links,
+  .footer-contact,
+  .footer-social {
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border: none;
+  }
 }

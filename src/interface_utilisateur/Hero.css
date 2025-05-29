@@ -1,0 +1,232 @@
+.heero {
+  margin-top: 35px;
+  width: 100%;
+  height: 100vh;
+  background-image: url("/accueil.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.heero-content {
+  max-width: 800px;
+  color: white;
+}
+
+.heero-content h1 {
+  font-size: 2.9rem;
+  max-width: 80%;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-left: 70px;
+  text-shadow: 4px 5px 3px rgba(0, 0, 0, 0.5);
+}
+.heero-content h1:hover {
+  text-shadow: 0 0 10px rgba(199, 100, 13, 0.5);
+  cursor: pointer;
+}
+
+.heero-content p {
+  font-size: 1rem;
+  font-style: bold;
+  margin-bottom: 30px;
+  max-width: 50%;
+  font-weight: bold;
+
+
+  line-height: 1.5;
+  text-shadow: 4px 5px 3px rgba(0, 0, 0, 0.5);
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Animations améliorées pour la barre de recherche */
+ .search-container {
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.5s ease;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+}
+
+ .search-container:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Effet de pulse autour de la barre de recherche */
+ .search-container::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 35px;
+  z-index: -1;
+  background: transparent;
+  border: 2px solid transparent;
+  animation: none;
+  transition: all 0.3s ease;
+}
+.search-container:hover::after {
+  border-color: rgba(255, 140, 0, 0.5);
+  box-shadow: 0 0 15px rgba(255, 140, 0, 0.3);
+  animation: pulseBorder 1.5s infinite;
+}
+
+.categori-background-image {
+  position: absolute;
+  top: 190px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;; /* Ajout du slash au début pour chercher dans le dossier public */
+  opacity: 1;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes pulseBorder {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Style et animation pour le champ de recherche */
+.heero .search-container input {
+  transition: all 0.4s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.heero .search-container:hover input {
+  background: rgba(255, 255, 255, 1);
+  padding-left: 20px;
+  letter-spacing: 0.5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation complètement nouvelle pour le bouton */
+.heero .search-container button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  background-color: #cc7708;
+  z-index: 1;
+}
+
+/* Effet de balayage lumineux */
+.heero .search-container button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 70%
+  );
+  transform: scale(0);
+  transition: transform 0.7s ease, left 0.5s ease;
+  z-index: -1;
+}
+
+.heero .search-container button:hover {
+  transform: scale(1.15);
+  background-color: #ff8c00;
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
+  color: white;
+}
+
+.heero .search-container button:hover::before {
+  transform: scale(1);
+  left: 0;
+  animation: rotateLightEffect 3s infinite linear;
+}
+
+@keyframes rotateLightEffect {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+/* Animation shake pour le bouton au clic */
+.heero .search-container button:active {
+  animation: buttonShake 0.3s ease;
+  transform: scale(0.95);
+}
+
+@keyframes buttonShake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Animation du texte du bouton (si applicable) */
+.heero .search-container button span {
+  transition: transform 0.3s ease;
+}
+
+.heero .search-container button:hover span {
+  transform: scale(1.05);
+}
+
+/* Animation des icônes dans le bouton (si applicable) */
+.heero .search-container button svg,
+.heero .search-container button i {
+  transition: transform 0.3s ease;
+}
+
+.heero .search-container button:hover svg,
+.heero .search-container button:hover i {
+  transform: rotate(15deg) scale(1.1);
+}
+
+/* Animation au clic sur le bouton */
+.heero .search-container button:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
+
+@media (max-width: 768px) {
+  .heero-content h1 {
+    font-size: 2rem;
+  }
+
+  .heero-content p {
+    font-size: 0.9rem;
+  }
+}

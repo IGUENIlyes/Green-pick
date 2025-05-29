@@ -1,12 +1,11 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./App";
+import "./acceuil.css"; // If you have this file
 
-// Réimportez votre CSS si nécessaire
-import "./acceuil.css";
-
-createRoot(document.getElementById("root")).render(
+// Render the application
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>

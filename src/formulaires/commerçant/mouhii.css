@@ -1,0 +1,284 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+/* Nature-themed animations */
+@keyframes floatLeaf {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(var(--end-x), var(--end-y)) rotate(var(--rotation));
+    opacity: 0;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+/* Apply dark green background to body */
+body.form-page-active {
+  overflow-x: hidden;
+  position: relative;
+  background: linear-gradient(135deg, #053d30 0%, #032520 50%, #074c36 100%);
+  background-size: 200% 200%;
+  animation: gradientFlow 15s ease infinite;
+}
+
+/* Green animated background */
+.commercant-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-top: 0;
+  position: relative;
+  z-index: 5;
+}
+
+/* Create nature animation container */
+.commercant-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.3;
+  background-image: radial-gradient(
+      circle at 20% 20%,
+      rgba(0, 255, 179, 0.15) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(106, 255, 228, 0.12) 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 40% 70%,
+      rgba(0, 219, 180, 0.1) 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 70% 90%,
+      rgba(0, 255, 170, 0.15) 0%,
+      transparent 25%
+    );
+  filter: blur(10px);
+}
+
+/* Add animated nature elements container */
+.nature-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Individual leaf styles */
+.leaf {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  --end-x: 0px;
+  --end-y: 0px;
+  --rotation: 0deg;
+  animation: floatLeaf 15s linear infinite;
+}
+
+.leaf1 {
+  top: 10%;
+  left: 10%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(0, 255, 176, 0.3)' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+  --end-x: 500px;
+  --end-y: 200px;
+  --rotation: 360deg;
+  animation-duration: 18s;
+  animation-delay: 0s;
+}
+
+.leaf2 {
+  top: 20%;
+  right: 10%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(0, 255, 176, 0.2)' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+  transform: scaleX(-1);
+  --end-x: -400px;
+  --end-y: 300px;
+  --rotation: -180deg;
+  animation-duration: 25s;
+  animation-delay: 5s;
+}
+
+.leaf3 {
+  top: 50%;
+  left: 5%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(0, 255, 176, 0.25)' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+  --end-x: 300px;
+  --end-y: -100px;
+  --rotation: 270deg;
+  animation-duration: 20s;
+  animation-delay: 2s;
+}
+
+.leaf4 {
+  bottom: 30%;
+  right: 5%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(0, 255, 176, 0.2)' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+  --end-x: -200px;
+  --end-y: -200px;
+  --rotation: 90deg;
+  animation-duration: 22s;
+  animation-delay: 7s;
+}
+
+/* Water ripple effect */
+.ripple {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transform: scale(0);
+  animation: ripple 10s infinite;
+}
+
+.ripple1 {
+  left: 20%;
+  top: 30%;
+  animation-delay: 0s;
+}
+
+.ripple2 {
+  right: 25%;
+  top: 60%;
+  animation-delay: 3s;
+}
+
+.ripple3 {
+  left: 60%;
+  bottom: 20%;
+  animation-delay: 6s;
+}
+
+/* Glowing spots */
+.glow-spot {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(20px);
+  opacity: 0.2;
+  z-index: -1;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 255, 179, 0.4),
+    transparent 70%
+  );
+  animation: shine 8s infinite ease-in-out;
+}
+
+.glow1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.glow2 {
+  width: 300px;
+  height: 300px;
+  bottom: 15%;
+  right: 10%;
+  animation-delay: 4s;
+}
+
+.commercant-app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px; /* Increase padding for all sides */
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: transparent; /* Changed from rgba(255, 255, 255, 0.9) to transparent */
+  border-radius: 12px;
+  position: relative;
+  z-index: 10;
+  /* Removed backdrop-filter: blur(5px); */
+  /* Removed border: 1px solid rgba(255, 255, 255, 0.3); */
+  /* Removed box-shadow */
+}
+
+/* Ensure form content also has proper padding */
+.form-step {
+  padding: 0 25px; /* Add horizontal padding to form steps */
+}
+
+/* Add additional spacing for form elements */
+.form-row,
+.form-group,
+.form-control {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 15px;
+}

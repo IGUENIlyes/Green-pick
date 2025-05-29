@@ -1,0 +1,2126 @@
+/* Add these keyframes for animations */
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes floatingParticles {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-100px) translateX(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Enhanced Nature-Themed Animations for Review Section */
+@keyframes leafFloat {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(var(--end-x), var(--end-y)) rotate(var(--rotation));
+    opacity: 0;
+  }
+}
+
+@keyframes waveMotion {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(-25px) translateY(10px);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@keyframes sunShimmer {
+  0% {
+    opacity: 0.1;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.2) rotate(180deg);
+  }
+  100% {
+    opacity: 0.1;
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+/* Add these new keyframes for the review section background animations */
+@keyframes reviewGradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes orbitFloat {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
+}
+
+@keyframes shineEffect {
+  0% {
+    transform: scale(0.95) rotate(0deg);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.05) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.95) rotate(360deg);
+    opacity: 0.5;
+  }
+}
+
+/* Add new keyframes for enhanced product details animations */
+@keyframes shimmerEffect {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes floatingCircle {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(var(--move-x), var(--move-y)) rotate(var(--rotate));
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.4;
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.3;
+    filter: blur(20px);
+  }
+  50% {
+    opacity: 0.7;
+    filter: blur(15px);
+  }
+  100% {
+    opacity: 0.3;
+    filter: blur(20px);
+  }
+}
+
+@keyframes deepWave {
+  0% {
+    transform: translateY(0) scaleX(1.05);
+  }
+  50% {
+    transform: translateY(10px) scaleX(0.95);
+  }
+  100% {
+    transform: translateY(0) scaleX(1.05);
+  }
+}
+
+/* Add new keyframes for the section animations */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes colorPulse {
+  0% {
+    background-color: rgba(249, 241, 213, 0.9);
+  }
+  50% {
+    background-color: rgba(255, 245, 225, 0.95);
+  }
+  100% {
+    background-color: rgba(249, 241, 213, 0.9);
+  }
+}
+
+@keyframes glowingBorder {
+  0% {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 0 rgba(255, 186, 96, 0);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 0 20px rgba(255, 186, 96, 0.2);
+  }
+  100% {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 0 rgba(255, 186, 96, 0);
+  }
+}
+
+@keyframes softFloat {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Updated body and main container styles */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #053d35;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.product-details-container {
+  max-width: 1300px;
+  margin: 0px;
+  padding: 2rem;
+  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    #064a40 0%,
+    #032520 40%,
+    #075a46 70%,
+    #032520 100%
+  );
+  background-size: 300% 300%;
+  animation: gradientBackground 20s ease infinite;
+  border-radius: 0px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  margin-top: 70px; /* Increased to prevent content from hiding under header */
+  padding-top: 1.5rem; /* Slightly increased for better spacing */
+  overflow: hidden; /* Important for containing the animations */
+}
+
+/* Enhanced animated background particles with better glow */
+.product-details-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.6;
+  background-image: radial-gradient(
+      circle at 20% 20%,
+      rgba(0, 255, 209, 0.15) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(106, 255, 228, 0.12) 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 40% 70%,
+      rgba(0, 219, 180, 0.1) 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 70% 90%,
+      rgba(0, 255, 170, 0.15) 0%,
+      transparent 25%
+    );
+  filter: blur(30px);
+  animation: pulse 15s ease-in-out infinite alternate;
+}
+
+/* Add shimmering effect overlay */
+.product-details-container::after {
+  /* Replace existing after with shimmer effect */
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -50%;
+  width: 200%;
+  height: 400%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.02) 45%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.02) 55%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  animation: shimmerEffect 8s infinite linear;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Add floating decorative elements container */
+.product-details-container .bg-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Individual floating elements */
+.float-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 255, 200, 0.15),
+    transparent 70%
+  );
+  animation: floatingCircle var(--duration) ease-in-out infinite;
+  opacity: 0.4;
+  --move-x: 0px;
+  --move-y: 0px;
+  --rotate: 0deg;
+}
+
+.float-circle:nth-child(1) {
+  top: 15%;
+  left: 10%;
+  width: 300px;
+  height: 300px;
+  --move-x: 30px;
+  --move-y: -20px;
+  --rotate: 30deg;
+  --duration: 25s;
+}
+
+.float-circle:nth-child(2) {
+  top: 60%;
+  left: 75%;
+  width: 250px;
+  height: 250px;
+  --move-x: -40px;
+  --move-y: 25px;
+  --rotate: -20deg;
+  --duration: 20s;
+  animation-delay: 7s;
+}
+
+.float-circle:nth-child(3) {
+  top: 70%;
+  left: 20%;
+  width: 200px;
+  height: 200px;
+  --move-x: 20px;
+  --move-y: -30px;
+  --rotate: 45deg;
+  --duration: 18s;
+  animation-delay: 3s;
+}
+
+.float-circle:nth-child(4) {
+  top: 20%;
+  left: 65%;
+  width: 350px;
+  height: 350px;
+  --move-x: -25px;
+  --move-y: 15px;
+  --rotate: -40deg;
+  --duration: 22s;
+  animation-delay: 5s;
+}
+
+/* Add glowing accents */
+.glow-accent {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 255, 187, 0.3),
+    transparent 70%
+  );
+  filter: blur(30px);
+  animation: glowPulse 10s ease-in-out infinite;
+}
+
+.glow-accent:nth-child(1) {
+  top: -10%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 255, 187, 0.2),
+    transparent 70%
+  );
+}
+
+.glow-accent:nth-child(2) {
+  bottom: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle at center,
+    rgba(9, 186, 137, 0.15),
+    transparent 70%
+  );
+  animation-delay: 5s;
+}
+
+/* Add animated waves at the bottom */
+.bg-wave {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(7, 90, 78, 0.1)' d='M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,213.3C672,224,768,224,864,202.7C960,181,1056,139,1152,133.3C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 100% 100px;
+  animation: deepWave 15s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+.bg-wave:nth-child(2) {
+  bottom: -40px;
+  height: 120px;
+  background-size: 120% 120px;
+  opacity: 0.3;
+  animation-duration: 18s;
+  animation-delay: 2s;
+}
+
+/* Product title adjustments to accommodate inline store name */
+.product-title {
+  color: #bdb0f9; /* Brighter teal for better visibility */
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem; /* Reduced to bring store name closer */
+  text-align: left;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  margin-right: 6.5rem; /* Add space between title and store name */
+  vertical-align: middle;
+}
+
+/* Store name styling - adjusted for inline positioning */
+.store-name {
+  color: #00ff5e; /* Same color as product title */
+}
+
+.store-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 2.2rem;
+  font-weight: 700;
+  gap: 9.5rem;
+}
+
+.product-image-container {
+  width: 100%;
+  max-width: 600px; /* Limit maximum width */
+  margin: 0 auto 2rem auto; /* Center the image and add bottom margin */
+  overflow: hidden;
+  border-radius: 18px; /* Increased border radius */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-detail-image {
+  width: 100%;
+  border: 8px solid #ffffff;
+  height: auto;
+  max-height: 400px; /* Limit the image height */
+  object-fit: cover;
+  border-radius: 39px; /* Border radius for the image itself */
+  transition: transform 0.3s ease;
+}
+
+.product-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Create a wrapper for description and location sections */
+.info-sections-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.description-section {
+  color: rgb(1, 14, 12);
+  background: linear-gradient(
+    135deg,
+    rgba(249, 241, 213, 0.9) 0%,
+    rgba(255, 248, 230, 0.95) 50%,
+    rgba(255, 236, 198, 0.9) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite, softFloat 8s ease-in-out infinite;
+  padding: 1.5rem;
+  border-radius: 20px;
+  flex: 1;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.description-section::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 195, 120, 0.2),
+    transparent 70%
+  );
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+}
+
+.description-section::after {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -50%;
+  width: 200%;
+  height: 400%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 170, 59, 0.03) 45%,
+    rgba(255, 170, 59, 0.08) 50%,
+    rgba(255, 170, 59, 0.03) 55%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  animation: shimmerEffect 6s infinite linear;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.description-section:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 0 15px rgba(255, 170, 59, 0.2);
+}
+
+.description-section:hover::before {
+  opacity: 1;
+}
+
+.description-section h2 {
+  color: #034c42;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.product-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.product-details-list {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.product-details-list li {
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+}
+
+.location-section {
+  color: rgb(1, 14, 12);
+  background: linear-gradient(
+    135deg,
+    rgba(223, 241, 237, 0.9) 0%,
+    rgba(193, 243, 232, 0.9) 50%,
+    rgba(178, 236, 223, 0.9) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite alternate;
+  padding: 1.5rem;
+  border-radius: 20px; /* Match other sections */
+  flex: 1;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.location-section::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: radial-gradient(
+      circle at 30% 20%,
+      rgba(0, 230, 190, 0.08) 0%,
+      transparent 60px
+    ),
+    radial-gradient(
+      circle at 70% 60%,
+      rgba(0, 210, 180, 0.07) 0%,
+      transparent 80px
+    ),
+    radial-gradient(
+      circle at 20% 70%,
+      rgba(0, 180, 150, 0.06) 0%,
+      transparent 70px
+    );
+  opacity: 0.7;
+  z-index: -1;
+  animation: pulse 10s ease-in-out infinite alternate;
+}
+
+.location-section:hover {
+  transform: translateY(-10px) scale(1.01);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 230, 190, 0.2);
+}
+
+/* Add sparkling dots to the location section for map-like effect */
+.location-section .sparkle-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: rgba(0, 210, 180, 0.6);
+  box-shadow: 0 0 10px 2px rgba(0, 230, 190, 0.4);
+  z-index: 2;
+  animation: sparkle 3s infinite;
+}
+
+.location-section .sparkle-dot:nth-child(1) {
+  top: 20%;
+  left: 30%;
+  animation-delay: 0.5s;
+}
+
+.location-section .sparkle-dot:nth-child(2) {
+  top: 60%;
+  left: 70%;
+  animation-delay: 1.5s;
+}
+
+.location-section .sparkle-dot:nth-child(3) {
+  top: 40%;
+  left: 20%;
+  animation-delay: 1s;
+}
+
+.location-details {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.location-details li {
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+}
+
+.purchase-section {
+  margin-left: 250px;
+  max-width: 670px; /* Limit maximum width */
+  display: flex;
+  align-items: center;
+  row-gap: 1rem;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 217, 196, 0.15) 0%,
+    rgba(0, 235, 212, 0.2) 50%,
+    rgba(0, 197, 180, 0.15) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 12s ease infinite,
+    glowingBorder 6s ease-in-out infinite;
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  border-radius: 20px;
+  margin-top: 0rem; /* Add some space above */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.purchase-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at bottom right,
+    rgba(0, 255, 220, 0.15) 0%,
+    transparent 70%
+  );
+  opacity: 0.7;
+  animation: pulse 8s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+.purchase-section::after {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -50%;
+  width: 200%;
+  height: 400%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(0, 255, 220, 0.03) 45%,
+    rgba(0, 255, 220, 0.08) 50%,
+    rgba(0, 255, 220, 0.03) 55%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  animation: shimmerEffect 8s infinite linear;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.purchase-section:hover {
+  transform: translateY(-15px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), 0 0 30px rgba(0, 255, 220, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.price-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.original-price {
+  color: #777;
+  text-decoration: line-through;
+  font-size: 1.2rem;
+}
+
+.current-price {
+  color: #9cfcde;
+  font-size: 2.3rem;
+  font-weight: bold;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.star-rating {
+  display: flex;
+}
+
+.star {
+  color: #ddd;
+  font-size: 1.2rem;
+}
+
+.star.filled {
+  color: #ff8c00;
+}
+
+.star.half-filled {
+  position: relative;
+  color: #ddd;
+}
+
+.star.half-filled::before {
+  content: "★";
+  position: absolute;
+  color: #ff8c00;
+  width: 50%;
+  overflow: hidden;
+}
+
+.review-count {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.availability {
+  margin: 1rem 0;
+  font-size: 1rem;
+}
+
+.availability strong {
+  color: #e91e63;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 4rem; /* Increased from default spacing */
+  width: 100%; /* Ensure full width */
+}
+
+.favorite-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 2rem; /* Add explicit right margin */
+}
+
+.favorite-button {
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  box-shadow: black 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.favorite-button:hover {
+  transform: scale(1.2);
+}
+
+.add-to-cart-container {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.add-to-cart-button {
+  background: linear-gradient(135deg, #ff8c00, #ff6a00);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
+}
+
+.add-to-cart-button:hover {
+  background: linear-gradient(135deg, #ff6a00, #ff8c00);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.6);
+}
+
+.quantity-counter {
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border: 2px solid #ff8c00;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .product-info-container {
+    flex-direction: column; /* Change to column layout */
+  }
+
+  .info-sections-wrapper {
+    flex-direction: row; /* Make description and location side by side */
+  }
+
+  .description-section {
+    flex: 3; /* Make description take more space */
+  }
+
+  .location-section {
+    flex: 2; /* Make location take less space */
+  }
+}
+
+@media (max-width: 767px) {
+  .product-title {
+    font-size: 1.8rem;
+  }
+
+  .actions-container {
+    flex-direction: column;
+    gap: 3rem;
+    align-items: flex-start;
+  }
+
+  .add-to-cart-container {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* Header Styles */
+.header {
+  margin-bottom: 40px;
+  background-color: #11a88a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 2rem;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  width: 100%;
+}
+
+/* Logo container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-logo {
+  height: 50px;
+}
+
+/* GreenPick text logo */
+.header-title {
+  font-weight: 700;
+  font-size: 32px;
+  color: #cef5e0;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.header-title .green-letter {
+  color: #7fff00; /* Pistachio green */
+}
+
+.header-title .orange-letter {
+  color: #ff8c00; /* Orange */
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.header-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.header-link:hover {
+  color: #ffe082;
+  transform: translateY(-3px);
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.icon-container {
+  background: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.icon-container:hover {
+  transform: scale(1.1);
+}
+
+.icon {
+  color: #11a88a;
+  width: 22px;
+  height: 22px;
+}
+
+.cart-container {
+  background: white;
+  border-radius: 50px;
+  padding: 0 15px 0 10px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cart-container:hover {
+  transform: scale(1.05);
+}
+
+.cart-icon {
+  color: #11a88a;
+  width: 22px;
+  height: 22px;
+}
+
+.cart-total {
+  color: #11a88a;
+  font-weight: bold;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #7fff00;
+  color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+/* Categories dropdown styles */
+.dropdown-container {
+  position: relative;
+}
+
+.categories-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #e0f7ea;
+  border-radius: 12px;
+  min-width: 220px;
+  max-height: 380px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 10px 25px rgba(0, 0, 0, 0.2);
+  transform-origin: top center;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.category-item {
+  padding: 10px 16px;
+  color: #03190d;
+  font-weight: 700;
+  font-size: 15px;
+  margin: 4px 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-item:hover {
+  background-color: rgba(26, 155, 138, 0.15);
+  color: #004d40;
+  transform: translateX(8px);
+}
+
+.category-item-highlight {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00c853, #18ffff);
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+.category-item:hover .category-item-highlight {
+  width: 100%;
+}
+
+/* Review Section Styling */
+.review-section {
+  margin-top: 3rem;
+  border-radius: 40px;
+  width: 100%;
+  background: #05463d;
+  position: relative;
+  padding: 5rem 2rem 8rem;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Animated gradient background */
+.review-section::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(
+      circle at 50% 50%,
+      rgba(7, 90, 78, 0.8) 0%,
+      #05463d 70%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(4, 58, 50, 0.8) 0%,
+      rgba(7, 104, 90, 0.5) 50%,
+      rgba(4, 58, 50, 0.8) 100%
+    );
+  background-size: 200% 200%, 300% 300%;
+  animation: gradientBackground 15s ease infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Animated nature elements container */
+.review-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(0, 255, 176, 0.05)' d='M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,224C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-size: 200% 120px;
+  animation: waveMotion 20s linear infinite;
+  opacity: 0.5;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Add animated nature elements */
+.nature-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.leaf {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  --end-x: 0px;
+  --end-y: 0px;
+  --rotation: 0deg;
+  animation: leafFloat 15s linear infinite;
+}
+
+.leaf1 {
+  top: 10%;
+  left: 10%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(0, 255, 176, 0.3)' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+  --end-x: 500px;
+  --end-y: 200px;
+  --rotation: 360deg;
+  animation-duration: 18s;
+  animation-delay: 0s;
+}
+
+.leaf2 {
+  top: 20%;
+  right: 10%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(0, 255, 176, 0.2)' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+  transform: scaleX(-1);
+  --end-x: -400px;
+  --end-y: 300px;
+  --rotation: -180deg;
+  animation-duration: 25s;
+  animation-delay: 5s;
+}
+
+.leaf3 {
+  top: 50%;
+  left: 5%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(0, 255, 176, 0.25)' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+  --end-x: 300px;
+  --end-y: -100px;
+  --rotation: 270deg;
+  animation-duration: 20s;
+  animation-delay: 2s;
+}
+
+.leaf4 {
+  bottom: 30%;
+  right: 5%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(0, 255, 176, 0.2)' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+  --end-x: -200px;
+  --end-y: -200px;
+  --rotation: 90deg;
+  animation-duration: 22s;
+  animation-delay: 7s;
+}
+
+/* Sunbeam effect */
+.sunbeam {
+  position: absolute;
+  top: -30%;
+  right: -30%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 200, 0.1) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  animation: sunShimmer 15s ease-in-out infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Floating fireflies/particles */
+.firefly {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: rgba(255, 255, 176, 0.7);
+  border-radius: 50%;
+  filter: blur(1px);
+  box-shadow: 0 0 4px 1px rgba(255, 255, 176, 0.5);
+  opacity: 0;
+  animation: fireflyGlow 5s ease-in-out infinite;
+}
+
+@keyframes fireflyGlow {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-20px) translateX(10px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) translateX(20px);
+  }
+}
+
+.firefly:nth-child(1) {
+  top: 20%;
+  left: 30%;
+  animation-duration: 7s;
+}
+
+.firefly:nth-child(2) {
+  top: 40%;
+  left: 60%;
+  animation-duration: 6s;
+  animation-delay: 1s;
+}
+
+.firefly:nth-child(3) {
+  top: 70%;
+  left: 80%;
+  animation-duration: 8s;
+  animation-delay: 2s;
+}
+
+.firefly:nth-child(4) {
+  top: 80%;
+  left: 20%;
+  animation-duration: 5s;
+  animation-delay: 1.5s;
+}
+
+.firefly:nth-child(5) {
+  top: 30%;
+  left: 70%;
+  animation-duration: 9s;
+  animation-delay: 3s;
+}
+
+/* Keep the rest of the review section styles */
+.review-container {
+  max-width: 900px;
+  margin: 0 auto;
+  color: white;
+  position: relative;
+  z-index: 10; /* Ensure content is above animations */
+  text-align: center;
+}
+
+.review-title {
+  color: white;
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.review-title::after {
+  content: "";
+  display: block;
+  width: 150px;
+  height: 3px;
+  background: #ff9e2c;
+  margin: 15px auto 0;
+  border-radius: 2px;
+}
+
+.review-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  margin-bottom: 3rem; /* Large space after subtitle */
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rating-input {
+  margin-bottom: 3rem; /* Large space between rating and comment */
+  text-align: center;
+}
+
+.rating-input p {
+  margin-bottom: 2rem;
+  color: white;
+  text-transform: lowercase;
+  font-size: 1.3rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.star-selector {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.star-option {
+  font-size: 3.5rem; /* Large stars */
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.star-option:hover {
+  color: #ff9e2c;
+}
+
+.star-option.selected {
+  color: #ff9e2c;
+}
+
+.comment-input {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.comment-input p {
+  margin-bottom: 1.5rem;
+  color: white;
+  text-transform: lowercase;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.comment-input textarea {
+  width: 100%;
+  padding: 1.2rem;
+  border-radius: 22px;
+  border: none;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 150px;
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: rgba(234, 255, 232, 0.9);
+  color: #333;
+}
+
+.comment-input textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 158, 44, 0.5);
+}
+
+.comment-input textarea::placeholder {
+  color: #777;
+}
+
+.submit-review-btn {
+  background: linear-gradient(135deg, #ff9e2c, #ff7b00);
+  color: white;
+  font-weight: 600;
+  padding: 1.2rem 3rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: block;
+  margin: 0 auto;
+  text-transform: uppercase;
+  box-shadow: 0 10px 20px rgba(255, 123, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.submit-review-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(255, 123, 0, 0.4);
+  background: linear-gradient(135deg, #ff7b00, #ff6a00);
+}
+
+.submit-review-btn:active {
+  transform: translateY(-2px);
+}
+
+/* Client Reviews Section - Based on provided image */
+.client-reviews-section {
+  margin-top: 2rem;
+  width: 100%;
+  background-color: #05463d;
+  padding: 4rem 2rem;
+  position: relative;
+  border-radius: 40px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #053d30, #032520, #074c36, #021a17);
+  background-size: 400% 400%;
+  animation: reviewGradientFlow 20s ease infinite;
+}
+
+/* Add decorative geometric elements */
+.client-reviews-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+      circle at 20% 30%,
+      rgba(0, 255, 179, 0.05) 0%,
+      transparent 200px
+    ),
+    radial-gradient(
+      circle at 80% 40%,
+      rgba(0, 255, 170, 0.07) 0%,
+      transparent 250px
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(0, 255, 179, 0.06) 0%,
+      transparent 200px
+    ),
+    radial-gradient(
+      circle at 70% 90%,
+      rgba(0, 255, 136, 0.08) 0%,
+      transparent 180px
+    );
+  z-index: 1;
+  opacity: 0.6;
+  animation: pulse 15s infinite alternate;
+}
+
+/* Add floating orbs in the background */
+.client-reviews-section::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 158, 44, 0.1) 0%,
+      transparent 80px
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(255, 123, 0, 0.08) 0%,
+      transparent 120px
+    ),
+    radial-gradient(
+      circle at 15% 70%,
+      rgba(255, 141, 26, 0.1) 0%,
+      transparent 100px
+    ),
+    radial-gradient(
+      circle at 70% 80%,
+      rgba(255, 150, 50, 0.07) 0%,
+      transparent 130px
+    );
+  z-index: 1;
+  animation: orbitFloat 25s infinite ease-in-out;
+}
+
+/* Add animated orbital rings */
+.orbit-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orbit {
+  position: absolute;
+  border: 1px solid rgba(0, 255, 170, 0.1);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+}
+
+.orbit-1 {
+  top: 10%;
+  left: 20%;
+  width: 300px;
+  height: 300px;
+  animation: orbitFloat 50s infinite linear;
+}
+
+.orbit-2 {
+  bottom: 10%;
+  right: 20%;
+  width: 400px;
+  height: 400px;
+  border-color: rgba(255, 158, 44, 0.07);
+  animation: orbitFloat 60s infinite linear reverse;
+}
+
+.orbit-3 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  border-color: rgba(0, 255, 213, 0.05);
+  animation: orbitFloat 80s infinite linear;
+}
+
+/* Glowing points on orbits */
+.orbit-point {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px rgba(0, 255, 170, 0.3);
+}
+
+.orbit-1 .orbit-point {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: shineEffect 8s infinite ease-in-out;
+}
+
+.orbit-2 .orbit-point {
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+  animation: shineEffect 12s infinite ease-in-out;
+  background: rgba(255, 190, 61, 0.6);
+  box-shadow: 0 0 10px 2px rgba(255, 158, 44, 0.3);
+}
+
+.orbit-3 .orbit-point {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  animation: shineEffect 10s infinite ease-in-out;
+}
+
+.orbit-3 .orbit-point:nth-child(2) {
+  left: auto;
+  right: 0;
+  animation-delay: 5s;
+}
+
+/* Make the client reviews container sit above the animations */
+.client-reviews-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.reviews-title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.reviews-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+}
+
+.reviews-cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.review-card {
+  background-color: #075a4e;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 300px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+.reviewer-name {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.review-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.review-stars {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.review-star {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.review-star.filled {
+  color: #ff9e2c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .reviews-cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .review-card {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+/* Client Reviews Section with Slider */
+.client-reviews-section {
+  /* ...existing styling... */
+}
+
+/* Add slider container to position arrows */
+.reviews-slider-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 50px;
+  margin-bottom: 2rem;
+  overflow: hidden; /* Hide content that slides outside */
+}
+
+.reviews-cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: nowrap;
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Dynamic sliding animation classes */
+.reviews-cards-container.sliding {
+  transition: transform 0.5s cubic-bezier(0.3, 0, 0.3, 1);
+}
+
+.reviews-cards-container.sliding.next {
+  transform: translateX(-110%);
+}
+
+.reviews-cards-container.sliding.prev {
+  transform: translateX(110%);
+}
+
+/* Review card animations */
+.review-card {
+  /* ...existing code... */
+  min-width: 300px;
+  flex: 0 0 auto;
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out,
+    box-shadow 0.3s ease;
+}
+
+/* Enhanced hover effect */
+.review-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Slider arrows - enhanced for better visual feedback */
+.review-slider-arrow {
+  /* ...existing code... */
+  opacity: 0.8;
+  transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+}
+
+.review-slider-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+  opacity: 1;
+}
+
+.review-slider-arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Add pulsing effect to navigation dots */
+.nav-dot {
+  /* ...existing code... */
+  position: relative;
+}
+
+.nav-dot.active::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 158, 44, 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-dot 1.5s infinite;
+  z-index: -1;
+}
+
+@keyframes pulse-dot {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .reviews-cards-container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+  }
+
+  .review-card {
+    min-width: 280px;
+    width: 100%;
+  }
+}
+
+/* Enhanced Dynamic Review Slider with Advanced Animations */
+.reviews-slider-container {
+  position: relative;
+  width: 100%;
+  padding: 0 50px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  perspective: 1000px; /* 3D perspective for more dynamic animation */
+}
+
+.reviews-cards-container {
+  display: flex;
+  gap: 2rem;
+  padding: 20px 0;
+  transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy effect */
+  transform: translateX(0);
+  width: 100%;
+}
+
+/* Dynamic Animation States */
+.reviews-cards-container.sliding-prev {
+  animation: slideFromLeft 0.8s forwards;
+}
+
+.reviews-cards-container.sliding-next {
+  animation: slideFromRight 0.8s forwards;
+}
+
+@keyframes slideFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Individual Review Card Animation */
+.review-card {
+  background-color: #0b5d5182;
+  border-radius: 32px;
+  padding: 2rem;
+  width: 300px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Springy effect */
+  transform-origin: center;
+  opacity: 0; /* Start invisible */
+  animation: cardAppear 0.5s forwards;
+  animation-delay: calc(var(--index) * 0.15s); /* Staggered animation */
+}
+
+@keyframes cardAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.review-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced Slider Arrows */
+.review-slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.1)
+  );
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.review-slider-arrow:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.2)
+  );
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.review-slider-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.left-arrow {
+  left: 5px;
+}
+
+.right-arrow {
+  right: 5px;
+}
+
+/* Enhanced hover animations for review cards */
+.review-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Glow effect on hover */
+.review-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(130, 114, 96, 0.3) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+/* Border highlight effect */
+.review-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #ff9e2c, transparent, #ff7b00) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 158, 44, 0.2);
+  background-color: #0a6b5c;
+}
+
+.review-card:hover::before {
+  opacity: 1;
+}
+
+.review-card:hover::after {
+  opacity: 1;
+}
+
+/* Individual element animations */
+.reviewer-name {
+  position: relative;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.reviewer-name::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff9e2c, transparent);
+  transform: translateX(-50%);
+  transition: width 0.4s ease-out;
+}
+
+.review-card:hover .reviewer-name {
+  transform: translateY(-3px);
+  color: #ff9e2c;
+}
+
+.review-card:hover .reviewer-name::after {
+  width: 60%;
+}
+
+.review-text {
+  transition: transform 0.4s ease 0.1s, color 0.3s ease;
+}
+
+.review-card:hover .review-text {
+  transform: scale(1.02);
+  color: rgba(255, 255, 255, 1);
+}
+
+.review-stars {
+  transition: transform 0.4s ease 0.2s;
+}
+
+.review-card:hover .review-stars {
+  transform: translateY(-3px) scale(1.1);
+}
+
+.review-star {
+  transition: transform 0.4s ease, color 0.3s ease;
+}
+
+.review-card:hover .review-star.filled {
+  animation: starPulse 1.5s infinite alternate;
+}
+
+@keyframes starPulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+/* Staggered star animation */
+.review-star:nth-child(1) {
+  transition-delay: 0.1s;
+}
+.review-star:nth-child(2) {
+  transition-delay: 0.15s;
+}
+.review-star:nth-child(3) {
+  transition-delay: 0.2s;
+}
+.review-star:nth-child(4) {
+  transition-delay: 0.25s;
+}
+.review-star:nth-child(5) {
+  transition-delay: 0.3s;
+}

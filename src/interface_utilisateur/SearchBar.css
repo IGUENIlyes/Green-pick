@@ -1,0 +1,108 @@
+.search-container {
+  display: flex;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  background: white;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  padding: 20px 30px;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  color: #333;
+  background: white;
+}
+
+.search-input::placeholder {
+  color: #999;
+  font-size: 1.1rem;
+}
+
+.search-button {
+  padding: 20px 40px;
+  background: linear-gradient(45deg, #ff8c00, #ff6a00);
+  color: white;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-transform: capitalize;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.search-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.1)
+  );
+  z-index: -1;
+  transition: left 0.7s ease;
+}
+
+.search-button:hover {
+  background: linear-gradient(45deg, #ff6a00, #ff8c00);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 108, 0, 0.4);
+}
+
+.search-button:hover::before {
+  left: 100%;
+}
+
+.search-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 5px 10px rgba(255, 108, 0, 0.4);
+}
+
+/* Effet de pulsation pour attirer l'attention */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 140, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 140, 0, 0);
+  }
+}
+
+.search-container:focus-within .search-button {
+  animation: pulse 1.5s infinite;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .search-container {
+    max-width: 90%;
+    flex-direction: column;
+    border-radius: 25px;
+  }
+
+  .search-input {
+    padding: 15px 20px;
+    text-align: center;
+  }
+
+  .search-button {
+    padding: 15px;
+    border-radius: 0;
+  }
+}

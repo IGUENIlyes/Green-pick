@@ -1,0 +1,677 @@
+.association-welcome-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #034b41;
+  background-image: url("asso.png"); /* Remplacez par le nom de votre image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+}
+
+.welcome-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(3, 75, 65, 0.8), rgba(3, 75, 65, 0.6));
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.welcome-title {
+  font-size: 3.5rem;
+  align-content: center;
+  color: white;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  margin-left: 60px;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  max-width: 90%;
+}
+
+/* Animation de brillance pour le titre */
+@keyframes titleGlow {
+  0% {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 10px rgb(3, 28, 1), 0 0 20px rgba(184, 104, 13, 0.71);
+  }
+  100% {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.welcome-title {
+  animation: titleGlow 3s infinite;
+}
+
+/* Media Queries pour la responsivité */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-title {
+    font-size: 2rem;
+  }
+
+  .welcome-content {
+    padding: 0 15px;
+  }
+}
+
+.category-section {
+  background-color: #034b41;
+  padding: 1rem 0;
+  color: white;
+  position: relative;
+  overflow: hidden; /* Pour contenir l'image d'arrière-plan */
+}
+
+.category-background-image {
+  position: absolute;
+  top: -115px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajout du slash au début pour chercher dans le dossier public */
+  opacity: 0.4;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Assurez-vous que tout le contenu est au-dessus de l'image d'arrière-plan */
+.category-header,
+.carousel-container,
+.etp {
+  position: relative;
+
+  z-index: 1;
+}
+
+.category-header {
+  text-align: center;
+  margin-bottom: 1rem;
+  text-shadow: 8px 5px 5px rgb(0, 0, 0);
+}
+
+.category-header h2 {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+  color: #d7f3cf;
+  text-shadow: 6px 10px 8px rgb(0, 0, 0);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+}
+
+.category-header h2:hover {
+  transform: translateY(-5px) scale(1.05);
+  color: #d7f3cf;
+  text-shadow: 6px 10px 8px rgb(0, 0, 0), 0 0 20px rgb(0, 0, 0);
+  animation: titleHover 1s infinite alternate;
+}
+
+.category-header h2:not(:hover) {
+  animation: titleLeave 0.8s forwards;
+}
+
+@keyframes titleHover {
+  0% {
+    transform: translateY(-5px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.08);
+  }
+  100% {
+    transform: translateY(-5px) scale(1.05);
+  }
+}
+
+@keyframes titleLeave {
+  0% {
+    transform: translateY(-5px) scale(1.05);
+    color: #4eff4e;
+    text-shadow: 6px 10px 8px rgb(0, 0, 0), 0 0 20px rgba(78, 255, 78, 0.5);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    color: white;
+    text-shadow: 6px 10px 8px rgb(0, 0, 0);
+  }
+}
+
+.category-header h2::after {
+  display: none; /* Removing the orange line on hover */
+}
+
+.category-header h2:hover::after {
+  transform: scaleX(0); /* Ensure it stays hidden on hover */
+}
+
+.category-header h2:not(:hover)::after {
+  transform: scaleX(0);
+  transition: none; /* Remove transition since we're not showing it */
+}
+
+.category-header .faite {
+  color: #2fff00;
+  font-size: 1.8rem;
+  text-shadow: 4px 5px 3px rgba(0, 0, 0, 0.865);
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.category-header p {
+  font-size: bold;
+}
+
+.carousel-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.categories-carousel {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  gap: 2rem;
+  padding: 2rem 0;
+  margin-bottom: 0px;
+}
+
+.category-card {
+  min-width: 150px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  transform: translateY(-13px) scale(1.05);
+}
+
+.category-icon {
+  background-color: #8cc490b8; /* Fond vert clair par défaut */
+  width: 100px;
+  height: 100px;
+  border-radius: 20%;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(3, 2, 0, 0.941);
+}
+
+.category-card:hover .category-icon {
+  box-shadow: 0 5px 15px rgba(3, 2, 0, 0.941);
+  background-color: #0bea0b36;
+}
+
+.category-image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  filter: brightness(0); /* Rend l'image noire par défaut */
+}
+
+.category-card:hover .category-image {
+  filter: brightness(0) invert(1);
+}
+
+.category-title {
+  font-size: bolder;
+  color: rgb(255, 255, 255);
+  margin-top: 0.3rem;
+  text-decoration: bisque;
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button:hover {
+  background-color: #4caf50;
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.nav-button-left {
+  left: 0;
+}
+
+.nav-button-right {
+  right: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .category-header h2 {
+    font-size: 2rem;
+  }
+
+  .carousel-container {
+    padding: 0 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .carousel-container {
+    padding: 0px;
+  }
+}
+
+.donations-section {
+  background-color: #034b41;
+  padding: 2rem;
+  color: white;
+  min-height: 100vh;
+  position: relative;
+}
+
+.donations-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+}
+
+.donations-header h2 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #d7f3cf;
+  text-shadow: 6px 10px 8px rgb(0, 0, 0);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+}
+
+.donations-header h2:hover {
+  transform: translateY(-5px) scale(1.05);
+  color: #d7f3cf;
+  text-shadow: 6px 10px 8px rgb(0, 0, 0), 0 0 20px rgb(0, 0, 0);
+  animation: titleHover 1s infinite alternate;
+}
+
+.donations-header h2:not(:hover) {
+  animation: titleLeave 0.8s forwards;
+}
+
+.donations-header h2::after {
+  display: none; /* Removing the orange line on hover */
+}
+
+.donations-header h2:hover::after {
+  transform: scaleX(0); /* Ensure it stays hidden on hover */
+}
+
+.donations-header h2:not(:hover)::after {
+  transform: scaleX(0);
+  transition: none; /* Remove transition since we're not showing it */
+}
+
+.donations-subtitle {
+  text-shadow: 6px 10px 8px rgb(0, 0, 0);
+  font-size: 1.2rem;
+  color: #4eff4e;
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.donations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8rem; /* Increased from 6rem to create more space between cards */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.donation-card {
+  background: rgb(255, 255, 255);
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: #000000;
+  cursor: pointer;
+  transform: scale(0.85); /* Further reduced from 0.9 to 0.85 */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 450px; /* Added max height constraint */
+  max-width: 420px; /* Added max width constraint */
+  margin: 0 auto; /* Center cards in their grid areas */
+  padding: 0.5rem;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+.donation-card:hover {
+  transform: translateY(-40px) scale(0.88) rotate(-3deg); /* Adjusted scale to match new base scale */
+  box-shadow: 0 82x 16px rgba(0, 0, 0, 0.1);
+  background: rgb(245, 245, 245);
+  padding: 0;
+}
+
+.donation-image-container {
+  width: 100%;
+  height: 200px; /* Further reduced from 220px to 200px */
+  overflow: hidden;
+  position: relative;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.donation-card:hover .donation-image-container {
+  border-radius: 25px 25px 0 0;
+  margin-bottom: 0.5rem;
+  transform: translateY(-5px);
+}
+
+.donation-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 15px;
+}
+
+.donation-card:hover .donation-image {
+  transform: scale(1.15);
+  border-radius: 25px 25px 0 0;
+}
+
+.donation-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  text-align: center;
+  padding: 0 0.5rem;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.donation-card:hover .donation-content {
+  padding: 0 1rem;
+  transform: translateY(-5px);
+}
+
+.donation-content h3 {
+  font-size: 1.3rem;
+  color: #034b41;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+}
+
+.like-button {
+  background: white;
+  border: 2px solid #4caf50;
+  width: 55px; /* Increased from 45px */
+  height: 55px; /* Increased from 45px */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.like-button svg {
+  width: 32px; /* Increased from 24px */
+  height: 32px; /* Increased from 24px */
+  color: #4caf50;
+  transition: all 0.3s ease;
+}
+
+.like-button:hover {
+  transform: scale(1.1);
+  background: #ffebf2; /* Changed to light pink background */
+  border-color: #e91e63; /* Changed border to pink */
+}
+
+.like-button.active {
+  background: #ffebf2; /* Changed from green to light pink */
+  border-color: #e91e63; /* Added pink border for active state */
+}
+
+.like-button.active svg {
+  color: #e91e63; /* Changed from white to pink */
+  fill: #e91e63; /* Changed from white to pink */
+}
+
+/* Add this new style for donation titles */
+.donation-title-container h3 {
+  font-size: 18px !important; /* Increased from 16px */
+  font-weight: 700 !important; /* Made slightly bolder */
+  margin-bottom: 12px !important; /* Added more space below title */
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .donations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .donations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .donation-card {
+    padding: 1rem;
+  }
+
+  .donation-image-container {
+    height: 200px;
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1) rotate(0);
+  }
+  100% {
+    transform: translateY(-30px) scale(1.03) rotate(-2deg);
+  }
+}
+
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  perspective: 1000px;
+}
+
+.show-more-button {
+  background: linear-gradient(45deg, #ff6a00, #ff8c00);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 108, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg); /* Changed to no rotation */
+  }
+  50% {
+    transform: rotate(0deg); /* Changed to no rotation */
+  }
+  100% {
+    transform: rotate(0deg); /* Changed to no rotation */
+  }
+}
+
+.show-more-button:hover {
+  animation: none; /* Removed rotation animation */
+  transform: translateY(-5px) scale(1.05); /* Added scale and slight lift effect instead */
+}
+
+.show-more-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.3)
+  );
+  transform: translateX(-100%) rotate(45deg);
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.show-more-button:hover::before {
+  transform: translateX(100%) rotate(45deg);
+}
+
+.show-more-button:active {
+  transform: translateY(2px) scale(0.95);
+  box-shadow: 0 5px 10px rgba(255, 108, 0, 0.2);
+}
+
+/* Modal styles for donation details */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeInModal 0.2s;
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: #03584e;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  display: flex;
+  max-width: 700px;
+  width: 95vw;
+  overflow: hidden;
+  animation: popInModal 0.25s;
+}
+
+@keyframes popInModal {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .modal-content {
+    flex-direction: column;
+    max-width: 98vw;
+    min-width: 0;
+  }
+  .modal-content img {
+    border-radius: 0 0 20px 20px !important;
+    max-height: 220px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 0 !important;
+    font-size: 15px;
+  }
+  .modal-content img {
+    max-height: 150px !important;
+  }
+}
+
+.header-link {
+  transition: color 0.2s, transform 0.2s;
+}
+.header-link:hover {
+  color: #ff8c00 !important;
+  transform: translateY(-5px) scale(1.07);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}

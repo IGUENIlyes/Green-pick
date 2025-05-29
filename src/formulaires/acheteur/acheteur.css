@@ -1,0 +1,260 @@
+body {
+  font-family: "Inter", Arial, sans-serif;
+}
+
+.acheteur-form-container {
+  width: 100%;
+  max-width: 420px;
+  margin: 60px auto;
+  margin-top: 120px;
+  padding: 10px 30px;
+  background:rgb(228, 238, 213);
+  border-radius: 30px;
+  box-shadow: 0 4px 24px rgb(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+
+.acheteur-form-title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #032019;
+  text-align: center;
+  margin-bottom: 32px;
+  letter-spacing: 0.5px;
+}
+
+.acheteur-form-step {
+  width: 100%;
+}
+
+.acheteur-form-group {
+  margin-bottom: 28px; /* Increased from 18px to 28px for more spacing between fields */
+  width: 100%;
+  position: relative;
+}
+
+.acheteur-form-group input[type="text"],
+.acheteur-form-group input[type="email"],
+.acheteur-form-group input[type="tel"],
+.acheteur-form-group input[type="password"] {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #17342c5f;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  background: #f3eded;
+  box-shadow: #000000;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.acheteur-form-group {
+  position: relative;
+}
+
+.acheteur-form-group input::placeholder {
+  color: #343232; /* Changed from #666 to black */
+  transition: all 0.3s ease;
+}
+
+.acheteur-form-group input:focus::placeholder {
+  transform: translateY(-20px);
+  font-size: 0.8rem;
+  opacity: 0.7;
+  color: #0a5c4a;
+}
+
+.acheteur-form-group input:focus,
+.acheteur-form-group input:hover {
+  box-shadow: #000000;
+  border-color: #0a5c4a;
+}
+
+.acheteur-password-group {
+  position: relative;
+}
+
+/* Animation subtile pour le bouton */
+@keyframes subtleFade {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Placeholder floating animation */
+@keyframes floatPlaceholder {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px);
+    opacity: 0.7;
+    font-size: 0.8rem;
+  }
+}
+
+/* Style amélioré pour le bouton toggle-password */
+.acheteur-toggle-password {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #555;
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  z-index: 10;
+  background-color: transparent;
+  text-decoration: none;
+  border-radius: 16px;
+  box-shadow: none;
+  outline: none;
+  height: 24px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.acheteur-toggle-password:hover {
+  color: #0a5c4a;
+  background-color: rgba(220, 123, 54, 0.194);
+  transform: translateY(-50%);
+}
+
+.acheteur-toggle-password:active {
+  transform: translateY(-50%) scale(0.97);
+  color: #0a5c4a;
+}
+
+/* Animation lors du changement d'état */
+.acheteur-toggle-password.changing {
+  animation: fadeTransition 0.3s ease-out;
+}
+
+/* Assurer que le mot de passe a assez d'espace pour le bouton */
+.acheteur-password-group input {
+  padding-right: 80px; /* Espace pour le texte "Afficher"/"Masquer" */
+}
+
+.acheteur-checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  margin-top: 40px;
+}
+
+.acheteur-checkbox-group input[type="checkbox"] {
+  accent-color: #ff9100;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  border: 2px solid #ff9100;
+  flex-shrink: 0;
+  margin: 0;
+  position: relative;
+  top: -4px;
+}
+
+.acheteur-checkbox-group label {
+  color: #3d3d3d;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+  line-height: 1.2;
+}
+
+.acheteur-form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.acheteur-btn-submit {
+  width: 100%;
+  padding: 14px 0;
+  background: #ff9100;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Changed to black box shadow */
+  margin-top: 10px;
+}
+.acheteur-btn-submit:hover {
+  background: #ff7c00;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6); /* Darker shadow on hover */
+}
+.acheteur-btn-back {
+  background: #eee;
+  color: #0a3c2f;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Added black box shadow */
+}
+.acheteur-btn-back:hover {
+  background: #ddd;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4); /* Darker shadow on hover */
+}
+
+.acheteur-step-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 18px 0 0 0;
+}
+.acheteur-step-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #ff9100;
+  background: #fff;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.acheteur-step-dot.active {
+  background: #ff9100;
+}
+
+.acheteur-login-link {
+  text-align: center;
+  margin-top: 18px;
+  color: #666;
+  font-size: 1rem;
+}
+.acheteur-login-link a {
+  color: #034418;
+  font-weight: 600;
+  text-decoration: none;
+  transition: text-decoration 0.2s;
+}
+.acheteur-login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Additional animation for fadeTransition that was referenced but not defined */
+@keyframes fadeTransition {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

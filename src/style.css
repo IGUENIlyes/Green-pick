@@ -1,0 +1,162 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.testimonial-card {
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+  cursor: pointer;
+  position: relative;
+  background: #ffffff;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.testimonial-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(76, 175, 80, 0.1),
+    rgba(255, 255, 255, 0.1)
+  );
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+  z-index: 0;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-15px);
+  background-color: #f8fff8;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-card:hover::before {
+  transform: translateY(0);
+}
+
+.testimonial-card p,
+.testimonial-card .testimonial-author {
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px) rotate(1deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.testimonial-card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.testimonial-card:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.testimonial-card:hover .testimonial-author {
+  color: #4caf50;
+  transform: scale(1.05);
+}
+
+.testimonial-author {
+  transition: all 0.3s ease;
+}
+
+/* Footer Animations */
+.footer-logo img {
+  transition: transform 0.3s ease;
+}
+
+.footer-logo img:hover {
+  transform: scale(1.1) rotate(2deg);
+}
+
+.footer-links ul li a {
+  position: relative;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links ul li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #df7b0f;
+  transition: width 0.3s ease;
+}
+.footer-links {
+  transition: transform 0.3s ease;
+}
+
+.footer-links:hover {
+  transform: scale(1.05);
+}
+
+.footer-links ul li a:hover {
+  color: #fdb307;
+}
+
+.footer-links ul li a:hover::after {
+  width: 100%;
+}
+
+.social-icons a {
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.social-icons a:hover {
+  transform: translateY(-5px);
+}
+
+.social-icon {
+  transition: fill 0.3s ease;
+}
+
+.social-icons a:hover .social-icon {
+  fill: #0c0153;
+}
+
+.footer-contact {
+  transition: transform 0.3s ease;
+}
+
+.footer-contact:hover {
+  color: rgb(255, 217, 0);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.footer-copyright {
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-copyright p {
+  transition: opacity 0.3s ease;
+}
+
+.footer-copyright:hover p {
+  opacity: 0.8;
+}

@@ -1,0 +1,244 @@
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #9d1111;
+}
+
+.main-container {
+  margin-top: 30px;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* Form container */
+.aka-ih-form-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background-color: rgb(
+    175,
+    251,
+    252
+  ) !important; /* Added !important to ensure it overrides inline styles */
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background circles */
+.aka-ih-background-circle {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.aka-ih-top-right {
+  top: -60px;
+  right: -60px;
+  background-color: rgba(0, 255, 255, 0.205);
+}
+
+.aka-ih-bottom-left {
+  bottom: -60px;
+  left: -60px;
+  background-color: rgba(255, 165, 0, 0.1);
+}
+
+/* Form content */
+.aka-ih-form-content {
+  position: relative;
+  z-index: 1;
+}
+
+.aka-ih-form-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #115e59; /* teal-800 */
+}
+
+.aka-ih-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Form fields */
+.aka-ih-form-field {
+  position: relative;
+}
+
+.aka-ih-input-container {
+  position: relative;
+}
+
+.aka-ih-form-input {
+  width: 100%;
+  padding: 2.5rem 1.75rem 1rem; /* Increased top padding to make room for label */
+  border: 1px solid #d1d5db;
+  border-radius: 19px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  height: 30px; /* Set fixed height for consistency */
+}
+
+.aka-ih-form-input:focus {
+  outline: none;
+  border-color: #14b8a6; /* teal-500 */
+  box-shadow: 0 0 0 1px #14b8a6; /* teal-500 */
+}
+
+.aka-ih-password-input {
+  padding-right: 5rem;
+}
+
+/* Floating label effect - modified to stay inside container */
+.aka-ih-form-label {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%; /* Start centered vertically */
+  transform: translateY(-50%); /* Center perfectly */
+  color: #6b7280; /* gray-500 */
+  transition: all 0.3s ease;
+  pointer-events: none;
+  background-color: transparent; /* No background needed */
+  padding: 0 0.25rem;
+  transform-origin: left top;
+  font-size: 1rem; /* Maintain consistent font size */
+}
+
+.aka-ih-form-input:focus + .aka-ih-form-label,
+.aka-ih-form-input:not(:placeholder-shown) + .aka-ih-form-label {
+  top: 15px; /* Fixed position at top of input, inside the container */
+  transform: translateY(0) scale(0.8); /* No vertical translation, just scaled */
+  color: #0d9488; /* teal-600 */
+}
+
+/* Password toggle button */
+.aka-ih-toggle-password {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #0d9488; /* teal-600 */
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Submit button */
+.aka-ih-submit-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #e4730f;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 19px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.aka-ih-submit-button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+  background-color: #eb5f09;
+}
+
+.aka-ih-submit-button:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 0 2px 5px rgba(76, 175, 80, 0.2);
+}
+
+.aka-ih-submit-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease;
+}
+
+.aka-ih-submit-button:hover::before {
+  width: 110%;
+}
+
+/* Sign up text */
+.signup-text {
+  font-size: 0.75rem;
+  text-align: center;
+  color: #6b7280; /* gray-500 */
+  margin-top: 1.5rem;
+}
+
+.signup-link {
+  color: #ef9b0a; /* teal-600 */
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/* Footer links */
+.footer-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: #9ca3af; /* gray-400 */
+}
+
+/* .separator {
+  margin: 0 0.5rem;
+} */
+
+.aka-ih-profile-section {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.aka-ih-profile-title {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.aka-ih-profile-options {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.aka-ih-profile-link {
+  color: #0ad40a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.aka-ih-profile-link:hover {
+  color: #4caf50;
+  transform: translateY(-2px);
+}

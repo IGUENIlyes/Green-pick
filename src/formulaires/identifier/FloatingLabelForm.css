@@ -1,0 +1,26 @@
+/* Target the main container of the form to remove white background */
+.floating-form-container,
+.form-card,
+.auth-form,
+.form-paper,
+.login-container {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(5px); /* Add subtle glass effect instead */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Make sure form inputs are still visible against transparent background */
+.form-input {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: white !important;
+}
+
+.form-label {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Ensure the form container doesn't have padding that creates the illusion of a background */
+.form-container > div {
+  padding: 0 !important;
+}

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./product_details.css";
 import Header from "../components/Header";
+import { Link } from "react-router-dom";
 
 // Import products and fallbackProduct directly from categories
 import { products, fallbackProduct } from "./categories";
@@ -24,7 +25,8 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(0);
   const [error, setError] = useState(null);
-  const [cartTotal, setCartTotal] = useState("1500.00 DZ");
+  // Initialize cartTotal to 0 instead of a fixed value
+  const [cartTotal, setCartTotal] = useState(0);
   // Add state for review functionality
   const [userRating, setUserRating] = useState(0);
   const [userComment, setUserComment] = useState("");
@@ -33,6 +35,16 @@ const ProductDetails = () => {
   // Add these new state variables for dynamic sliding animation
   const [slideDirection, setSlideDirection] = useState("next");
   const [isSliding, setIsSliding] = useState(false);
+  // Add state for favorite toggling
+  const [isFavorite, setIsFavorite] = useState(false);
+  // Add state for favorites count
+  const [favoritesCount, setFavoritesCount] = useState(0);
+  // Add state for favorite products
+  const [favoriteProducts, setFavoriteProducts] = useState([]);
+  // Add state for cart popup
+  const [cartPopupOpen, setCartPopupOpen] = useState(false);
+  // Add cart items state to track items in cart
+  const [cartItems, setCartItems] = useState([]);
 
   // Use the favorites context
   // const { toggleFavorite, isFavorited } = useFavorites();
@@ -81,12 +93,53 @@ const ProductDetails = () => {
   const handleQuantityChange = (amount) => {
     setQuantity((prev) => Math.max(0, prev + amount));
   };
+  // Update handleAddToCart to save to localStorage
   const handleAddToCart = () => {
     if (quantity > 0 && product) {
-      // Add to cart logic
-      alert(`Ajouté ${quantity} de ${product.title} au panier`);
+      // Calculate the price to add to cart
+      const priceValue = parseFloat(product.price.replace(/[^\d.-]/g, "")) || 0;
+      const totalToAdd = priceValue * quantity;
+
+      // Update cart total
+      const newTotal = cartTotal + totalToAdd;
+      setCartTotal(newTotal);
+
+      // Save to localStorage
+      localStorage.setItem("cartTotal", newTotal.toString());
+
+      // Add to cart items array
+      const updatedCartItems = [...cartItems];
+      const existingItemIndex = updatedCartItems.findIndex(
+        (item) => item.id === product.id
+      );
+
+      if (existingItemIndex >= 0) {
+        // Update quantity if item already exists
+        updatedCartItems[existingItemIndex].quantity += quantity;
+      } else {
+        // Add new item
+        updatedCartItems.push({ ...product, quantity });
+      }
+
+      setCartItems(updatedCartItems);
+
+      // Save cart items to localStorage
+      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
+      // Format and display the new total
+      const formattedTotal = `${newTotal.toFixed(2)} DZ`;
+
+      // Alert with formatted message
+      alert(`Ajouté ${quantity} de ${product.title} au panier
+Prix unitaire: ${product.price}
+Total ajouté: ${totalToAdd.toFixed(2)} DZ
+Nouveau total du panier: ${formattedTotal}`);
     }
   };
+  // Format cartTotal for display in Header component - show 0 when empty
+  const formattedCartTotal =
+    cartTotal > 0 ? `${cartTotal.toFixed(2)} DZ` : "0.00 DZ";
+
   // Generate stars based on rating
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
@@ -164,9 +217,206 @@ const ProductDetails = () => {
     }, 50);
   };
 
+  // Attach the remove favorite handler to window for Header component
+  useEffect(() => {
+    window.onRemoveFavorite = (productId) => {
+      setFavoriteProducts((prev) => prev.filter((p) => p.id !== productId));
+
+      // If current product was removed, update its favorite status
+      if (product && product.id === productId) {
+        setIsFavorite(false);
+      }
+
+      // Update favorite count
+      setFavoritesCount((prev) => Math.max(0, prev - 1));
+    };
+
+    return () => {
+      window.onRemoveFavorite = undefined;
+    };
+  }, [product]);
+
+  // Update toggle favorite function to manage favorites count and products list
+  const toggleFavorite = () => {
+    const newFavoriteStatus = !isFavorite;
+    setIsFavorite(newFavoriteStatus);
+
+    // Update favorites count
+    const newCount = newFavoriteStatus
+      ? favoritesCount + 1
+      : Math.max(0, favoritesCount - 1);
+
+    setFavoritesCount(newCount);
+
+    // Save to localStorage
+    localStorage.setItem("favoritesCount", newCount.toString());
+
+    // Update favorite products list
+    let updatedFavorites = [...favoriteProducts];
+
+    if (newFavoriteStatus && product) {
+      // Check if product is already in favorites
+      if (!updatedFavorites.some((p) => p.id === product.id)) {
+        updatedFavorites.push(product);
+      }
+    } else if (product) {
+      updatedFavorites = updatedFavorites.filter((p) => p.id !== product.id);
+    }
+
+    setFavoriteProducts(updatedFavorites);
+
+    // Save to localStorage
+    localStorage.setItem("favoriteProducts", JSON.stringify(updatedFavorites));
+  };
+
+  // Handler for toggling cart popup
+  const toggleCartPopup = () => {
+    setCartPopupOpen(!cartPopupOpen);
+  };
+
+  // Handler for removing items from cart
+  const removeFromCart = (itemId) => {
+    const itemToRemove = cartItems.find((item) => item.id === itemId);
+    if (itemToRemove) {
+      const itemPrice =
+        parseFloat(itemToRemove.price.replace(/[^\d.-]/g, "")) || 0;
+      const newTotal = Math.max(
+        0,
+        cartTotal - itemPrice * itemToRemove.quantity
+      );
+      setCartTotal(newTotal);
+      setCartItems((prev) => prev.filter((item) => item.id !== itemId));
+    }
+  };
+
+  // Add useEffect to load data from localStorage on component mount
+  useEffect(() => {
+    // Load cart data
+    const savedCartTotal = localStorage.getItem("cartTotal");
+    if (savedCartTotal) {
+      setCartTotal(parseFloat(savedCartTotal));
+    }
+
+    const savedCartItems = localStorage.getItem("cartItems");
+    if (savedCartItems) {
+      setCartItems(JSON.parse(savedCartItems));
+    }
+
+    // Load favorites data
+    const savedFavoritesCount = localStorage.getItem("favoritesCount");
+    if (savedFavoritesCount) {
+      setFavoritesCount(parseInt(savedFavoritesCount));
+    }
+
+    const savedFavoriteProducts = localStorage.getItem("favoriteProducts");
+    if (savedFavoriteProducts) {
+      const savedFavs = JSON.parse(savedFavoriteProducts);
+      setFavoriteProducts(savedFavs);
+
+      // Check if current product is in favorites
+      if (product && savedFavs.some((p) => p.id === product.id)) {
+        setIsFavorite(true);
+      }
+    }
+  }, [product]);
+
   return (
     <>
-      <Header cartTotal={cartTotal} />
+      <Header
+        cartTotal={formattedCartTotal}
+        favoritesCount={favoritesCount}
+        favoriteProducts={favoriteProducts}
+        onCartClick={toggleCartPopup}
+      />
+
+      {/* Cart Popup */}
+      {cartPopupOpen && (
+        <div className="cart-popup-overlay" onClick={toggleCartPopup}>
+          <div
+            className="cart-popup-container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="cart-popup-header">
+              <h2>Vos paniers sélectionnés :</h2>
+              <button className="close-popup-btn" onClick={toggleCartPopup}>
+                ×
+              </button>
+            </div>
+
+            <div className="cart-items-container">
+              {cartItems.length > 0 ? (
+                cartItems.map((item) => (
+                  <div key={item.id} className="cart-item">
+                    <img
+                      src={item.imageUrl || "/placeholder.png"}
+                      alt={item.title}
+                      className="cart-item-image"
+                      onError={(e) => {
+                        e.target.src = "/placeholder.png";
+                        e.target.onerror = null;
+                      }}
+                    />
+                    <div className="cart-item-details">
+                      <h3>{item.title}</h3>
+                      <div className="cart-item-price-quantity">
+                        <div className="cart-item-price">{item.price}</div>
+                        <div className="cart-item-quantity">
+                          Quantité: <span>{item.quantity}</span>
+                        </div>
+                      </div>
+                      <div className="cart-item-rating">
+                        {[...Array(Math.floor(item.rating || 0))].map(
+                          (_, i) => (
+                            <span key={i} className="cart-star">
+                              ★
+                            </span>
+                          )
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      className="remove-cart-item-btn"
+                      onClick={() => removeFromCart(item.id)}
+                      aria-label="Retirer du panier"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <div className="empty-cart">
+                  <div className="empty-icon">🛒</div>
+                  <p>Votre panier est vide</p>
+                  <p className="empty-subtitle">
+                    Ajoutez des paniers pour les sauver du gaspillage
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="cart-popup-footer">
+              <div className="cart-total-section">
+                <span>Total :</span>
+                <span className="cart-total-amount">{formattedCartTotal}</span>
+              </div>
+              <div className="cart-actions">
+                <button
+                  className="continue-shopping-btn"
+                  onClick={toggleCartPopup}
+                >
+                  Continuer vos achats
+                </button>
+                {cartItems.length > 0 && (
+                  <button className="proceed-payment-btn">
+                    <Link to="/payment"> Accéder au paiement</Link>
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Product Details Content */}
       <div className="product-details-container">
         {/* Enhanced background elements with flowers and nature objects */}
@@ -181,26 +431,55 @@ const ProductDetails = () => {
           <div className="bg-wave"></div>
           <div className="bg-wave"></div>
 
-          {/* New animated flower elements */}
-          <div className="animated-flower flower1"></div>
-          <div className="animated-flower flower2"></div>
-          <div className="animated-flower flower3"></div>
-          <div className="animated-flower flower4"></div>
-          <div className="animated-flower flower5"></div>
+          {/* New animated flower elements with enhanced animations */}
+          <div className="animated-flower flower1 dancing"></div>
+          <div className="animated-flower flower2 pulsing"></div>
+          <div className="animated-flower flower3 floating"></div>
+          <div className="animated-flower flower4 spinning"></div>
+          <div className="animated-flower flower5 bouncing"></div>
 
-          {/* Floating leaves */}
-          <div className="floating-leaf leaf-elm1"></div>
-          <div className="floating-leaf leaf-elm2"></div>
-          <div className="floating-leaf leaf-elm3"></div>
+          {/* Additional flower elements */}
+          <div className="animated-flower flower6 floating-spin"></div>
+          <div className="animated-flower flower7 sway"></div>
+          <div className="animated-flower flower8 breathing"></div>
+          <div className="animated-flower flower9 rotating-zoom"></div>
+          <div className="animated-flower flower10 wiggle"></div>
 
-          {/* Butterflies */}
-          <div className="butterfly butterfly1"></div>
-          <div className="butterfly butterfly2"></div>
+          {/* Floating leaves with enhanced animations */}
+          <div className="floating-leaf leaf-elm1 flutter"></div>
+          <div className="floating-leaf leaf-elm2 drift"></div>
+          <div className="floating-leaf leaf-elm3 twirl"></div>
+          <div className="floating-leaf leaf-elm4 float-dance"></div>
+          <div className="floating-leaf leaf-elm5 spiral"></div>
 
-          {/* Grass elements at bottom */}
-          <div className="grass-element grass1"></div>
-          <div className="grass-element grass2"></div>
-          <div className="grass-element grass3"></div>
+          {/* Enhanced butterflies */}
+          <div className="butterfly butterfly1 flutter-path"></div>
+          <div className="butterfly butterfly2 zigzag-path"></div>
+          <div className="butterfly butterfly3 circular-path"></div>
+
+          {/* Grass elements at bottom with motion */}
+          <div className="grass-element grass1 sway-slow"></div>
+          <div className="grass-element grass2 sway-medium"></div>
+          <div className="grass-element grass3 sway-fast"></div>
+
+          {/* Particle elements for additional depth */}
+          <div className="particle particle1"></div>
+          <div className="particle particle2"></div>
+          <div className="particle particle3"></div>
+          <div className="particle particle4"></div>
+          <div className="particle particle5"></div>
+          <div className="particle particle6"></div>
+          <div className="particle particle7"></div>
+          <div className="particle particle8"></div>
+          <div className="particle particle9"></div>
+          <div className="particle particle10"></div>
+
+          {/* Pollen floating elements */}
+          <div className="pollen pollen1"></div>
+          <div className="pollen pollen2"></div>
+          <div className="pollen pollen3"></div>
+          <div className="pollen pollen4"></div>
+          <div className="pollen pollen5"></div>
         </div>
 
         {loading ? (
@@ -214,7 +493,20 @@ const ProductDetails = () => {
 
         {product && (
           <>
-            <h1 className="product-title">{product.title}</h1>
+            <h1
+              className="product-title"
+              style={{
+                textAlign: "center",
+                width: "100%",
+                margin: "0 auto 30px auto",
+                fontSize: "2.5rem",
+                fontWeight: "bold",
+                color: "#fff",
+                textShadow: "0 2px 10px rgba(0,0,0,0.3)",
+              }}
+            >
+              {product.title}
+            </h1>
 
             <div className="product-image-container">
               <img
@@ -229,42 +521,48 @@ const ProductDetails = () => {
             </div>
 
             <div className="product-info-container">
-              {/* Wrap description and location in a container */}
-              <div className="info-sections-wrapper">
-                <div className="description-section">
-                  <h2>Description</h2>
+              {/* Combined container for description and location */}
+              <div
+                className="info-combined-wrapper"
+                style={{
+                  width: "85%",
+                  maxWidth: "800px",
+                  margin: "0 auto 20px auto",
+                  backgroundColor: "rgba(0, 0, 0, 0.1)",
+                  borderRadius: "12px",
+                  padding: "20px",
+                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                {/* Combined content in a single presentation */}
+                <h2>Informations du Panier</h2>
+                
+                <div className="combined-content">
                   <p className="product-description">{product.description}</p>
 
-                  <ul className="product-details-list">
+                  <ul className="product-details-list" style={{ marginBottom: "20px" }}>
                     {product.details.map((detail, index) => (
                       <li key={index}>{detail}</li>
                     ))}
                   </ul>
-                </div>
-
-                <div className="location-section">
-                  {/* Add sparkling dots for map-like animation effect */}
-                  <div className="sparkle-dot"></div>
-                  <div className="sparkle-dot"></div>
-                  <div className="sparkle-dot"></div>
-
-                  <h3>Localisation de Retrait :</h3>
-
-                  <ul className="location-details">
-                    <li>
-                      <strong>Lieu :</strong> {product.location.name}
-                    </li>
-                    <li>
-                      <strong>Adresse :</strong> {product.location.address}
-                    </li>
-                    <li>
-                      <strong>Heure de Retrait :</strong>{" "}
-                      {product.location.hours}
-                    </li>
-                    <li>
-                      <strong>Téléphone :</strong> {product.location.phone}
-                    </li>
-                  </ul>
+                  
+                  {/* Location information integrated directly */}
+                  <div className="location-info" style={{ 
+                    marginTop: "15px", 
+                    backgroundColor: "rgba(255, 255, 255, 0.05)",
+                    padding: "15px",
+                    borderRadius: "8px" 
+                  }}>
+                    <p><strong>Lieu de Retrait:</strong> {product.location.name}</p>
+                    <p><strong>Adresse:</strong> {product.location.address}</p>
+                    <p><strong>Heure de Retrait:</strong> {product.location.hours}</p>
+                    <p><strong>Téléphone:</strong> {product.location.phone}</p>
+                  </div>
+                  
+                  {/* Decorative sparkle dots distributed throughout content */}
+                  <div className="sparkle-dot" style={{ top: "20%", left: "10%" }}></div>
+                  <div className="sparkle-dot" style={{ top: "60%", right: "15%" }}></div>
+                  <div className="sparkle-dot" style={{ top: "80%", left: "30%" }}></div>
                 </div>
               </div>
 
@@ -288,14 +586,33 @@ const ProductDetails = () => {
 
                 <div className="actions-container">
                   <div className="favorite-section">
-                    <span>Ajouter aux favoris : </span>
+                    <span>Ajouter aux favoris</span>
                     <button
-                    //   className={`favorite-button ${
-                    //     isFavorited(product.id) ? "active" : ""
-                    //   }`}
-                    //   onClick={() => toggleFavorite(product.id)}
+                      className={`favorite-button ${
+                        isFavorite ? "active" : ""
+                      }`}
+                      onClick={toggleFavorite}
+                      aria-label={
+                        isFavorite
+                          ? "Retirer des favoris"
+                          : "Ajouter aux favoris"
+                      }
                     >
-                      {/*{isFavorited(product.id) ? "❤️" : "🤍"}*/}
+                      <svg
+                        className="heart-icon"
+                        viewBox="0 0 24 24"
+                        width="22"
+                        height="22"
+                        stroke={isFavorite ? "red" : "#ffffff"}
+                        fill={isFavorite ? "red" : "none"}
+                        strokeWidth="1.5"
+                      >
+                        <path
+                          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
                     </button>
                   </div>
 

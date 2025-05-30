@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 // interface_utilisateur/categories.jsx
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import "./categories.css";
 import TestimonialsSection from "./tem";
 import backgroundImage from "/forme sin (1).png";
-
+import Header from "../components/Header"; // Import the Header component
+import { Link } from "react-router-dom";
 const categories = [
   {
     id: 1,
@@ -298,6 +299,134 @@ const CategorySection = () => {
   const [visibleProducts, setVisibleProducts] = useState(6);
   const [hoveredCategory, setHoveredCategory] = useState(null);
 
+  // Add state for cart and favorites
+  const [cartTotal, setCartTotal] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
+  const [favoritesCount, setFavoritesCount] = useState(0);
+  const [favoriteProducts, setFavoriteProducts] = useState([]);
+
+  // Add state for cart popup
+  const [cartPopupOpen, setCartPopupOpen] = useState(false);
+
+  const categoriesMenu = [
+    { name: "Tout Les paniers", link: "/all-baskets" },
+    { name: "Restauration Rapide Locale", link: "/local-fast-food" },
+    { name: "Restaurants de Grillades", link: "/grill-restaurants" },
+    { name: "Restaurants de Fruits de Mer", link: "/seafood-restaurants" },
+    { name: "Restaurants de Luxe", link: "/luxury-restaurants" },
+    { name: "Cuisine Internationale", link: "/international-cuisine" },
+    { name: "Pâtisseries", link: "/pastries" },
+    { name: "Cafés & Thés", link: "/cafes-teas" },
+    { name: "Cuisine Végétarienne", link: "/vegetarian-cuisine" },
+    { name: "Cuisine Asiatique", link: "/asian-cuisine" },
+  ];
+
+  // Load cart and favorites data from localStorage on component mount
+  useEffect(() => {
+    // Load cart data
+    const savedCartTotal = localStorage.getItem("cartTotal");
+    if (savedCartTotal) {
+      setCartTotal(parseFloat(savedCartTotal));
+    }
+
+    const savedCartItems = localStorage.getItem("cartItems");
+    if (savedCartItems) {
+      setCartItems(JSON.parse(savedCartItems));
+    }
+
+    // Load favorites data
+    const savedFavoritesCount = localStorage.getItem("favoritesCount");
+    if (savedFavoritesCount) {
+      setFavoritesCount(parseInt(savedFavoritesCount));
+    }
+
+    const savedFavoriteProducts = localStorage.getItem("favoriteProducts");
+    if (savedFavoriteProducts) {
+      setFavoriteProducts(JSON.parse(savedFavoriteProducts));
+    }
+
+    // Set window handler for removing favorites
+    window.onRemoveFavorite = removeFromFavorites;
+
+    return () => {
+      // Clean up when component unmounts
+      window.onRemoveFavorite = undefined;
+    };
+  }, []);
+
+  // Update function to toggle cart popup - remove navigation
+  const toggleCartPopup = () => {
+    setCartPopupOpen(!cartPopupOpen);
+  };
+
+  // Fix the removeFromCart function to properly handle state updates
+  const removeFromCart = (itemId) => {
+    try {
+      const itemToRemove = cartItems.find((item) => item.id === itemId);
+      if (itemToRemove) {
+        const itemPrice =
+          parseFloat(itemToRemove.price.replace(/[^\d.-]/g, "")) || 0;
+        const itemQuantity = itemToRemove.quantity || 1;
+        const newTotal = Math.max(0, cartTotal - itemPrice * itemQuantity);
+
+        // Update total
+        setCartTotal(newTotal);
+
+        // Create updated items array first
+        const updatedItems = cartItems.filter((item) => item.id !== itemId);
+
+        // Update items state
+        setCartItems(updatedItems);
+
+        // Update localStorage with the new values
+        localStorage.setItem("cartTotal", newTotal.toString());
+        localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+      }
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+      // Provide fallback behavior or show error message
+    }
+  };
+
+  // Add a function to navigate to product details page safely
+  const viewProductDetails = (productId) => {
+    try {
+      // Close popup before navigation
+      setCartPopupOpen(false);
+      navigate(`/product_details/${productId}`);
+    } catch (error) {
+      console.error("Navigation error:", error);
+      window.location.href = `/product_details/${productId}`;
+    }
+  };
+
+  // Add function to remove from favorites
+  const removeFromFavorites = (productId) => {
+    try {
+      // Remove from favorites array
+      const updatedFavorites = favoriteProducts.filter(
+        (item) => item.id !== productId
+      );
+      setFavoriteProducts(updatedFavorites);
+
+      // Update favorites count
+      const newCount = Math.max(0, favoritesCount - 1);
+      setFavoritesCount(newCount);
+
+      // Update localStorage
+      localStorage.setItem(
+        "favoriteProducts",
+        JSON.stringify(updatedFavorites)
+      );
+      localStorage.setItem("favoritesCount", newCount.toString());
+    } catch (error) {
+      console.error("Error removing item from favorites:", error);
+    }
+  };
+
+  const formattedCartTotal =
+    cartTotal > 0 ? `${cartTotal.toFixed(2)} DZ` : "0.00 DZ";
+
   const scrollLeft = () => {
     if (carouselRef.current) {
       const container = carouselRef.current;
@@ -397,6 +526,304 @@ const CategorySection = () => {
 
   return (
     <>
+      {/* Add Header component */}
+      <Header
+        cartTotal={formattedCartTotal}
+        favoritesCount={favoritesCount}
+        favoriteProducts={favoriteProducts}
+        onCartClick={toggleCartPopup}
+        onRemoveFavorite={removeFromFavorites}
+        categoriesMenu={categoriesMenu}
+      />
+
+      {/* Cart Popup with fixed styling */}
+      {cartPopupOpen && (
+        <div
+          className="cart-popup-overlay"
+          onClick={toggleCartPopup}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            zIndex: 1000,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "20px",
+          }}
+        >
+          <div
+            className="cart-popup-container"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: "100%",
+              maxWidth: "600px",
+              maxHeight: "80vh",
+              backgroundColor: "#112222",
+              borderRadius: "12px",
+              boxShadow: "0 5px 25px rgba(0, 0, 0, 0.5)",
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <div
+              className="cart-popup-header"
+              style={{
+                padding: "15px 20px",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                backgroundColor: "rgba(0, 0, 0, 0.2)",
+              }}
+            >
+              <h2
+                style={{
+                  margin: 0,
+                  color: "#fff",
+                  fontSize: "1.2rem",
+                }}
+              >
+                Vos paniers sélectionnés :
+              </h2>
+              <button
+                className="close-popup-btn"
+                onClick={toggleCartPopup}
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontSize: "1.5rem",
+                  color: "#fff",
+                  cursor: "pointer",
+                  padding: "0 5px",
+                }}
+              >
+                ×
+              </button>
+            </div>
+
+            <div
+              className="cart-items-container"
+              style={{
+                padding: "20px",
+                overflowY: "auto",
+                flex: 1,
+              }}
+            >
+              {cartItems && cartItems.length > 0 ? (
+                cartItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className="cart-item"
+                    style={{
+                      display: "flex",
+                      padding: "10px",
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                      marginBottom: "10px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={item.imageUrl || "/placeholder.png"}
+                      alt={item.title}
+                      className="cart-item-image"
+                      onClick={() => viewProductDetails(item.id)}
+                      style={{
+                        width: "60px",
+                        height: "60px",
+                        objectFit: "cover",
+                        borderRadius: "8px",
+                        marginRight: "15px",
+                        cursor: "pointer",
+                      }}
+                      onError={(e) => {
+                        e.target.src = "/placeholder.png";
+                        e.target.onerror = null;
+                      }}
+                    />
+                    <div
+                      className="cart-item-details"
+                      onClick={() => viewProductDetails(item.id)}
+                      style={{
+                        flex: 1,
+                        cursor: "pointer",
+                        color: "#fff",
+                      }}
+                    >
+                      <h3
+                        style={{
+                          margin: "0 0 5px 0",
+                          fontSize: "1rem",
+                        }}
+                      >
+                        {item.title}
+                      </h3>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          marginBottom: "5px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            color: "#93C572",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {item.price}
+                        </div>
+                        <div
+                          style={{
+                            color: "#ccc",
+                            fontSize: "0.9rem",
+                          }}
+                        >
+                          Quantité: <span>{item.quantity || 1}</span>
+                        </div>
+                      </div>
+                      <div style={{ color: "#FFD700" }}>
+                        {[...Array(Math.floor(item.rating || 0))].map(
+                          (_, i) => (
+                            <span key={i} style={{ fontSize: "0.8rem" }}>
+                              ★
+                            </span>
+                          )
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      className="remove-cart-item-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeFromCart(item.id);
+                      }}
+                      aria-label="Retirer du panier"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        fontSize: "1.2rem",
+                        color: "#ff5555",
+                        cursor: "pointer",
+                        padding: "0 5px",
+                      }}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <div
+                  className="empty-cart"
+                  style={{
+                    textAlign: "center",
+                    padding: "30px 20px",
+                    color: "#fff",
+                  }}
+                >
+                  <div style={{ fontSize: "2rem", marginBottom: "10px" }}>🛒</div>
+                  <p
+                    style={{
+                      fontSize: "1.1rem",
+                      margin: "0 0 10px 0",
+                    }}
+                  >
+                    Votre panier est vide
+                  </p>
+                  <p
+                    style={{
+                      color: "#aaa",
+                      fontSize: "0.9rem",
+                      margin: 0,
+                    }}
+                  >
+                    Ajoutez des paniers pour les sauver du gaspillage
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div
+              className="cart-popup-footer"
+              style={{
+                padding: "15px 20px",
+                borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+                backgroundColor: "rgba(0, 0, 0, 0.2)",
+              }}
+            >
+              <div
+                className="cart-total-section"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: "15px",
+                  color: "#fff",
+                  fontWeight: "bold",
+                }}
+              >
+                <span>Total :</span>
+                <span style={{ color: "#93C572" }}>{formattedCartTotal}</span>
+              </div>
+              <div
+                className="cart-actions"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: "10px",
+                }}
+              >
+                <button
+                  className="continue-shopping-btn"
+                  onClick={toggleCartPopup}
+                  style={{
+                    padding: "8px 15px",
+                    backgroundColor: "#333",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    flex: 1,
+                  }}
+                >
+                  Continuer vos achats
+                </button>
+                {cartItems && cartItems.length > 0 && (
+                  <button
+                    className="proceed-payment-btn"
+                    style={{
+                      padding: "8px 15px",
+                      backgroundColor: "#93C572",
+                      color: "#333",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      fontWeight: "bold",
+                      flex: 1,
+                    }}
+                  >
+                    <Link
+                      to="/payment"
+                      style={{
+                        color: "inherit",
+                        textDecoration: "none",
+                        display: "block",
+                        width: "100%",
+                      }}
+                    >
+                      Accéder au paiement
+                    </Link>
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <motion.section
         className="category-section"
         initial={{ opacity: 0, scale: 0.95 }}
@@ -704,7 +1131,7 @@ const CategorySection = () => {
                   </div>
                   <div className="prices">
                     <span className="old-price">{product.originalPrice}</span>
-                    <span className="current-price"> {product.price}</span>
+                    <span className="pess-current-price"> {product.price}</span>
                   </div>
                 </div>
               </div>

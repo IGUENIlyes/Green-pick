@@ -17,28 +17,22 @@ export default function FloatingLabelForm() {
     // Ici vous pouvez ajouter votre logique d'authentification
   };
 
-  const transparentContainerStyle = {
-    backgroundColor: "transparent",
-    boxShadow: "none",
-    border: "1px solid rgba(255, 255, 255, 0.1)",
-    backdropFilter: "blur(5px)",
-  };
-
   return (
     <>
       <header>
         <a href="#" className="logo">
-          <img className="oops" src="logo.png" alt="image"></img>
-          GREENPICK
+          <img className="logo-img" src="logo.png" alt="GreenPick Logo" />
+          <span className="logo-text">
+            <span className="green-letter">G</span>REEN
+            <span className="orange-letter">P</span>ICK
+          </span>
         </a>
         <nav>
           <ul>
             <li>
-              <a href="#">Accueil</a>
+              <Link to="/accueil">Accueil</Link>
             </li>
-            <li>
-              <a href="#">S'identifier</a>
-            </li>
+
             <li>
               <a
                 href="#contact"
@@ -69,52 +63,58 @@ export default function FloatingLabelForm() {
         </nav>
       </header>
 
-      <main>
+      <div className="identifier-page">
+        {/* Nature animated elements - similar to LogAssociation */}
+        <div className="nature-elements">
+          <div className="leaf leaf1"></div>
+          <div className="leaf leaf2"></div>
+          <div className="leaf leaf3"></div>
+          <div className="leaf leaf4"></div>
+
+          <div className="ripple ripple1"></div>
+          <div className="ripple ripple2"></div>
+          <div className="ripple ripple3"></div>
+
+          <div className="glow-spot glow1"></div>
+          <div className="glow-spot glow2"></div>
+        </div>
+
         <div
-          className="aka-ih-form-container"
-          style={transparentContainerStyle}
+          className="identifier-form-container"
+          style={{ marginTop: "70px" }}
         >
-          <div className="aka-ih-background-circle aka-ih-top-right"></div>
-          <div className="aka-ih-background-circle aka-ih-bottom-left"></div>
+          <div className="identifier-form-content">
+            <h1 className="identifier-form-title">S'identifier</h1>
 
-          <div className="aka-ih-form-content">
-            <h1 className="aka-ih-form-title">S'identifier</h1>
-
-            <form onSubmit={handleSubmit} className="aka-ih-login-form">
-              <div className="aka-ih-form-field">
-                <div className="aka-ih-input-container">
+            <form onSubmit={handleSubmit} className="identifier-login-form">
+              <div className="identifier-form-field">
+                <div className="identifier-input-container">
                   <input
                     type="email"
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="aka-ih-form-input"
-                    placeholder=" "
+                    className="identifier-form-input"
+                    placeholder="Email"
                     required
                   />
-                  <label htmlFor="email" className="aka-ih-form-label">
-                    Email
-                  </label>
                 </div>
               </div>
 
-              <div className="aka-ih-form-field">
-                <div className="aka-ih-input-container">
+              <div className="identifier-form-field">
+                <div className="identifier-input-container">
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="aka-ih-form-input aka-ih-password-input"
-                    placeholder=" "
+                    className="identifier-form-input"
+                    placeholder="Mot de passe"
                     required
                   />
-                  <label htmlFor="password" className="aka-ih-form-label">
-                    Mot de passe
-                  </label>
                   <button
                     type="button"
-                    className="aka-ih-toggle-password"
+                    className="identifier-toggle-password"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? "Masquer" : "Afficher"}
@@ -122,26 +122,31 @@ export default function FloatingLabelForm() {
                 </div>
               </div>
 
-              <button type="submit" className="aka-ih-submit-button">
+              <button type="submit" className="identifier-submit-button">
                 S'identifier
               </button>
             </form>
 
-            <div className="aka-ih-profile-section">
-              <p className="aka-ih-profile-title">
+            <div className="identifier-profile-section">
+              <p className="identifier-profile-title">
                 Pas encore inscrit ? Choisissez votre profil:
               </p>
-              <div className="aka-ih-profile-options">
-                <Link to="/inscrire_commerçant" className="aka-ih-profile-link">
+              <div className="identifier-profile-options">
+                <Link
+                  to="/inscrire_commerçant"
+                  className="identifier-profile-link"
+                >
                   Commerçant
                 </Link>
-                <Link to="/inscrire_acheteur" className="aka-ih-profile-link">
+                <Link
+                  to="/inscrire_acheteur"
+                  className="identifier-profile-link"
+                >
                   Acheteur
                 </Link>
-
                 <Link
                   to="/inscrire_association"
-                  className="aka-ih-profile-link"
+                  className="identifier-profile-link"
                 >
                   Association
                 </Link>
@@ -149,7 +154,7 @@ export default function FloatingLabelForm() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

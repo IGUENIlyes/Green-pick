@@ -287,8 +287,22 @@ const CommentCaMarche = () => {
     <>
       <header id="dlftr">
         <a href="#" className="logo">
-          <img className="oops" src="logo.png" alt="image"></img>
-          GREENPICK
+          <img
+            className="oops"
+            src="/logo.png"
+            alt="Logo GreenPick"
+            style={{
+              display: "inline-block",
+              marginRight: "10px",
+              verticalAlign: "middle",
+              maxHeight: "40px",
+              width: "auto",
+            }}
+          />
+          <span style={{ letterSpacing: "4px" }}>
+            <span style={{ color: "#36ff00" }}>G</span>REEN
+            <span style={{ color: "#FF9800" }}>P</span>ICK
+          </span>
         </a>
         <nav>
           <ul>

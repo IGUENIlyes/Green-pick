@@ -52,7 +52,8 @@
 /* Form container with animated background */
 .association-form-container {
   width: 100%;
-  max-width: 420px;
+  max-width: 600px; /* Increased from 420px to 600px to make the form wider */
+  margin: 10px -80px; /* Center horizontally with auto margins */
   background: linear-gradient(
     135deg,
     rgba(10, 92, 69, 0.9),

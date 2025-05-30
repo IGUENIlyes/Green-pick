@@ -1,6 +1,8 @@
 .commercant-form-container {
   width: 100%;
-  max-width: 420px;
+  max-width: 600px; /* Increased from default (likely 500px) */
+  margin: 40px auto;
+  padding: 40px;
   background: linear-gradient(
     135deg,
     rgba(136, 215, 192, 0.9),
@@ -9,9 +11,8 @@
   );
   background-size: 300% 300%;
   animation: colorShift 15s ease infinite;
-  border-radius: 30px;
-  padding: 30px 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   position: relative;
 }
@@ -134,8 +135,9 @@
 }
 
 .commercant-multi-step-form {
+  width: 100%; /* Ensure the form takes full width of container */
   position: relative;
-  overflow: hidden;
+  z-index: 2; /* Ensure form appears above decorative elements */
 }
 
 .commercant-form-step {
@@ -320,4 +322,38 @@
     transform: scale(1);
     opacity: 0.4;
   }
+}
+
+/* Add these styles for the logo in the commerçant page */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-img {
+  width: 40px;
+  height: auto;
+  margin-right: 12px;
+}
+
+.logo-text {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: white;
+  letter-spacing: 1px;
+}
+
+.green-letter {
+  color: #93c572; /* Pistachio green color */
+}
+
+.orange-letter {
+  color: #ff8c00; /* Orange color */
+}
+
+/* Hide the old class */
+.oops {
+  display: none;
 }

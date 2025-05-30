@@ -8,8 +8,11 @@ export default function Accueil() {
     <>
       <header>
         <a href="#" className="logo">
-          <img className="oops" src="logo.png" alt="image"></img>
-          GREENPICK
+          <img className="logo-img" src="logo.png" alt="GreenPick Logo" />
+          <span className="logo-text">
+            <span className="green-letter">G</span>REEN
+            <span className="orange-letter">P</span>ICK
+          </span>
         </a>
         <nav>
           <ul>
@@ -170,9 +173,9 @@ export default function Accueil() {
                 <br />
                 invendus
               </p>
-              <a href="#" className="button">
+              <Link to="/inscrire_commerçant" className="button">
                 Vendre
-              </a>
+              </Link>
             </div>
 
             <div className="separator"></div>
@@ -183,9 +186,10 @@ export default function Accueil() {
                 <br />
                 dons en un clic !
               </p>
-              <a href="#" className="button">
+
+              <Link to="/inscrire_association" className="button">
                 Recevoir
-              </a>
+              </Link>
             </div>
           </div>
         </section>

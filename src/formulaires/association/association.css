@@ -260,3 +260,37 @@ footer {
   width: 100%;
   z-index: 1;
 }
+
+/* Add these styles for the logo in the association page */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-img {
+  width: 40px;
+  height: auto;
+  margin-right: 12px;
+}
+
+.logo-text {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: white;
+  letter-spacing: 1px;
+}
+
+.green-letter {
+  color: #93c572; /* Pistachio green color */
+}
+
+.orange-letter {
+  color: #ff8c00; /* Orange color */
+}
+
+/* Hide the old class */
+.oops {
+  display: none;
+}

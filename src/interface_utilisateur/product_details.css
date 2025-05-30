@@ -321,7 +321,6 @@ body {
   transform: rotate(25deg);
   animation: shimmerEffect 8s infinite linear;
   pointer-events: none;
-  z-index: 0;
 }
 
 /* Add floating decorative elements container */
@@ -332,8 +331,8 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: -1;
   pointer-events: none;
+  z-index: -1;
 }
 
 /* Individual floating elements */
@@ -789,9 +788,10 @@ body {
 }
 
 .current-price {
-  color: #9cfcde;
+  color: #ffffff;
   font-size: 2.3rem;
   font-weight: bold;
+  box-shadow: #000000;
 }
 
 .rating-container {
@@ -853,24 +853,69 @@ body {
 .favorite-section {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-right: 2rem; /* Add explicit right margin */
+  background-color: #015e4a; /* Dark green background similar to reference */
+  padding: 10px 15px;
+  border-radius: 50px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
+.favorite-section span {
+  color: white;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+/* Heart icon button styling */
 .favorite-button {
-  gap: 0.5rem;
-  background: none;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Semi-transparent circular background */
   border: none;
-  font-size: 1.5rem;
   cursor: pointer;
-  transition: transform 0.2s ease;
-  box-shadow: black 0 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin-left: auto; /* Push to right side */
 }
 
-.favorite-button:hover {
+.heart-icon {
+  width: 22px;
+  height: 22px;
+  transition: all 0.3s ease;
+}
+
+.favorite-button.active .heart-icon {
   transform: scale(1.2);
+  filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.3));
 }
 
+/* Add animation for heart icon */
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.favorite-button.active .heart-icon {
+  animation: heartBeat 0.6s ease-in-out;
+}
+
+/* Add to Cart button adjustments */
 .add-to-cart-container {
   display: flex;
   align-items: center;
@@ -909,63 +954,63 @@ body {
   color: #333;
 }
 
-/* Responsive design */
-@media (min-width: 768px) {
-  .product-info-container {
-    flex-direction: column; /* Change to column layout */
-  }
+/* Advanced Animated Components */
 
-  .info-sections-wrapper {
-    flex-direction: row; /* Make description and location side by side */
-  }
-
-  .description-section {
-    flex: 3; /* Make description take more space */
-  }
-
-  .location-section {
-    flex: 2; /* Make location take less space */
-  }
-}
-
-@media (max-width: 767px) {
-  .product-title {
-    font-size: 1.8rem;
-  }
-
-  .actions-container {
-    flex-direction: column;
-    gap: 3rem;
-    align-items: flex-start;
-  }
-
-  .add-to-cart-container {
-    width: 100%;
-    justify-content: space-between;
-  }
-}
-
-/* Header Styles */
-.header {
-  margin-bottom: 40px;
-  background-color: #11a88a;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.8rem 2rem;
-  position: fixed;
+/* Floating 3D Bubbles with realistic depth effect */
+.bubble-container {
+  position: absolute;
   top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  left: 0;
   width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Logo container */
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.2),
+              0 0 15px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
+  animation: float-bubble 25s linear infinite;
+  opacity: 0;
 }
+
+@keyframes float-bubble {
+  0% {
+    transform: translate(0, 100%) scale(0.1);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--max-opacity);
+  }
+  90% {
+    opacity: var(--max-opacity);
+  }
+  100% {
+    transform: translate(var(--translate-x), -100%) scale(var(--scale));
+    opacity: 0;
+  }
+}
+
+/* Generate 15 bubbles with varied properties */
+.bubble:nth-child(1) { --translate-x: 20px; --scale: 0.8; --max-opacity: 0.3; left: 10%; animation-duration: 30s; width: 40px; height: 40px; }
+.bubble:nth-child(2) { --translate-x: -40px; --scale: 1.2; --max-opacity: 0.2; left: 25%; animation-duration: 35s; animation-delay: 3s; width: 60px; height: 60px; }
+.bubble:nth-child(3) { --translate-x: 50px; --scale: 0.9; --max-opacity: 0.25; left: 40%; animation-duration: 28s; animation-delay: 7s; width: 35px; height: 35px; }
+.bubble:nth-child(4) { --translate-x: -25px; --scale: 1.1; --max-opacity: 0.3; left: 60%; animation-duration: 32s; animation-delay: 5s; width: 55px; height: 55px; }
+.bubble:nth-child(5) { --translate-x: 35px; --scale: 0.7; --max-opacity: 0.2; left: 75%; animation-duration: 25s; animation-delay: 2s; width: 30px; height: 30px; }
+.bubble:nth-child(6) { --translate-x: -40px; --scale: 1.0; --max-opacity: 0.15; left: 15%; animation-duration: 38s; animation-delay: 10s; width: 45px; height: 45px; }
+.bubble:nth-child(7) { --translate-x: 30px; --scale: 0.85; --max-opacity: 0.25; left: 35%; animation-duration: 40s; animation-delay: 8s; width: 50px; height: 50px; }
+.bubble:nth-child(8) { --translate-x: -20px; --scale: 1.3; --max-opacity: 0.2; left: 55%; animation-duration: 34s; animation-delay: 4s; width: 65px; height: 65px; }
+.bubble:nth-child(9) { --translate-x: 45px; --scale: 0.75; --max-opacity: 0.3; left: 80%; animation-duration: 27s; animation-delay: 6s; width: 35px; height: 35px; }
 
 .header-logo {
   height: 50px;
@@ -2108,19 +2153,321 @@ body {
   }
 }
 
-/* Staggered star animation */
-.review-star:nth-child(1) {
-  transition-delay: 0.1s;
+/* Enhanced Background Animations */
+.bg-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
 }
-.review-star:nth-child(2) {
-  transition-delay: 0.15s;
+
+/* Flower base styles and enhanced positioning */
+.animated-flower {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.7;
+  z-index: -1;
 }
-.review-star:nth-child(3) {
-  transition-delay: 0.2s;
+
+.flower1 {
+  top: 10%;
+  left: 5%;
+  background-image: url('/flower1.png'), radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  width: 70px;
+  height: 70px;
 }
-.review-star:nth-child(4) {
-  transition-delay: 0.25s;
+
+.flower2 {
+  top: 25%;
+  right: 8%;
+  background-image: url('/flower2.png'), radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  width: 60px;
+  height: 60px;
 }
-.review-star:nth-child(5) {
-  transition-delay: 0.3s;
+
+.flower3 {
+  bottom: 30%;
+  left: 10%;
+  background-image: url('/flower3.png'), radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  width: 55px;
+  height: 55px;
 }
+
+.flower4 {
+  top: 40%;
+  right: 15%;
+  background-image: url('/flower4.png'), radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  width: 65px;
+  height: 65px;
+}
+
+.flower5 {
+  bottom: 15%;
+  right: 7%;
+  background-image: url('/flower5.png'), radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  width: 50px;
+  height: 50px;
+}
+
+.flower6 {
+  top: 15%;
+  left: 30%;
+  background-image: url('/flower1.png'), radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  width: 45px;
+  height: 45px;
+}
+
+.flower7 {
+  bottom: 25%;
+  right: 25%;
+  background-image: url('/flower2.png'), radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  width: 40px;
+  height: 40px;
+}
+
+.flower8 {
+  top: 50%;
+  left: 20%;
+  background-image: url('/flower3.png'), radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  width: 75px;
+  height: 75px;
+}
+
+.flower9 {
+  top: 70%;
+  left: 5%;
+  background-image: url('/flower4.png'), radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  width: 55px;
+  height: 55px;
+}
+
+.flower10 {
+  top: 20%;
+  right: 30%;
+  background-image: url('/flower5.png'), radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  width: 60px;
+  height: 60px;
+}
+
+/* Fallback background colors for flowers if images aren't available */
+.animated-flower::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: -1;
+}
+
+/* Enhanced Animation Keyframes */
+@keyframes dance {
+  0%, 100% { transform: rotate(0) translateY(0); }
+  25% { transform: rotate(15deg) translateY(-10px); }
+  50% { transform: rotate(0) translateY(5px); }
+ 
+  75% { transform: rotate(-15deg) translateY(-5px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.2); opacity: 0.9; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+@keyframes float-spin {
+  0% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-15px) rotate(180deg); }
+  100% { transform: translateY(0) rotate(360deg); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-15deg); }
+  50% { transform: rotate(15deg); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.1); filter: brightness(1.2); }
+}
+
+@keyframes rotate-zoom {
+  0% { transform: rotate(0) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  25% { transform: translate(5px, 5px) rotate(5deg); }
+  50% { transform: translate(0, -5px) rotate(-5deg); }
+  75% { transform: translate(-5px, 5px) rotate(5deg); }
+}
+
+@keyframes flutter {
+  0%, 100% { transform: rotate(0) translate(0, 0); }
+  10% { transform: rotate(10deg) translate(5px, -5px); }
+  20% { transform: rotate(-5deg) translate(-5px, -10px); }
+  30% { transform: rotate(5deg) translate(10px, -15px); }
+  40% { transform: rotate(-10deg) translate(-5px, -20px); }
+  50% { transform: rotate(5deg) translate(5px, -25px); }
+  60% { transform: rotate(-5deg) translate(-10px, -20px); }
+  70% { transform: rotate(10deg) translate(5px, -15px); }
+  80% { transform: rotate(-10deg) translate(-5px, -10px); }
+  90% { transform: rotate(5deg) translate(5px, -5px); }
+}
+
+@keyframes drift {
+  0% { transform: translate(0, 0) rotate(0); }
+  25% { transform: translate(30px, 10px) rotate(15deg); }
+  50% { transform: translate(10px, 30px) rotate(30deg); }
+  75% { transform: translate(-20px, 10px) rotate(15deg); }
+  100% { transform: translate(0, 0) rotate(0); }
+}
+
+@keyframes twirl {
+  0% { transform: rotate(0) translateX(0); }
+  33% { transform: rotate(120deg) translateX(20px); }
+  66% { transform: rotate(240deg) translateX(-20px); }
+  100% { transform: rotate(360deg) translateX(0); }
+}
+
+@keyframes float-dance {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  33% { transform: translateY(-15px) rotate(10deg); }
+  66% { transform: translateY(10px) rotate(-10deg); }
+}
+
+@keyframes spiral {
+  0% { transform: rotate(0) translateX(0) translateY(0) scale(1); }
+  25% { transform: rotate(90deg) translateX(20px) translateY(-20px) scale(1.1); }
+  50% { transform: rotate(180deg) translateX(0) translateY(-40px) scale(1); }
+  75% { transform: rotate(270deg) translateX(-20px) translateY(-20px) scale(0.9); }
+  100% { transform: rotate(360deg) translateX(0) translateY(0) scale(1); }
+}
+
+@keyframes sway-slow {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes sway-medium {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+
+@keyframes sway-fast {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+
+@keyframes flutter-path {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(50px, -30px); }
+  50% { transform: translate(100px, 0); }
+  75% { transform: translate(50px, 30px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes zigzag-path {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(40px, -40px); }
+  40% { transform: translate(80px, 0); }
+  60% { transform: translate(120px, -40px); }
+  80% { transform: translate(160px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes circular-path {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(40px, -40px); }
+  50% { transform: translate(0, -80px); }
+  75% { transform: translate(-40px, -40px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Apply animations to elements */
+.dancing { animation: dance 8s ease-in-out infinite; }
+.pulsing { animation: pulse 5s ease-in-out infinite; }
+.floating { animation: float 6s ease-in-out infinite; }
+.spinning { animation: spin 12s linear infinite; }
+.bouncing { animation: bounce 7s ease-in-out infinite; }
+.floating-spin { animation: float-spin 10s ease-in-out infinite; }
+.sway { animation: sway 8s ease-in-out infinite; }
+.breathing { animation: breathe 6s ease-in-out infinite; }
+.rotating-zoom { animation: rotate-zoom 15s ease-in-out infinite; }
+.wiggle { animation: wiggle 4s ease-in-out infinite; }
+.flutter { animation: flutter 12s ease-in-out infinite; }
+.drift { animation: drift 20s ease-in-out infinite; }
+.twirl { animation: twirl 15s ease-in-out infinite; }
+.float-dance { animation: float-dance 10s ease-in-out infinite; }
+.spiral { animation: spiral 20s ease-in-out infinite; }
+.sway-slow { animation: sway-slow 8s ease-in-out infinite; transform-origin: bottom center; }
+.sway-medium { animation: sway-medium 6s ease-in-out infinite; transform-origin: bottom center; }
+.sway-fast { animation: sway-fast 4s ease-in-out infinite; transform-origin: bottom center; }
+.flutter-path { animation: flutter-path 15s ease-in-out infinite; }
+.zigzag-path { animation: zigzag-path 20s ease-in-out infinite; }
+.circular-path { animation: circular-path 12s ease-in-out infinite; }
+
+/* Particle styling */
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  filter: blur(1px);
+  opacity: 0.6;
+  animation: float 15s ease-in-out infinite;
+}
+
+.particle1 { top: 15%; left: 10%; animation-delay: 0s; }
+.particle2 { top: 25%; left: 20%; animation-delay: 2s; }
+.particle3 { top: 35%; left: 30%; animation-delay: 1s; }
+.particle4 { top: 45%; left: 15%; animation-delay: 3s; }
+.particle5 { top: 55%; left: 25%; animation-delay: 0.5s; }
+.particle6 { top: 65%; left: 35%; animation-delay: 1.5s; }
+.particle7 { top: 20%; left: 75%; animation-delay: 2.5s; }
+.particle8 { top: 30%; left: 85%; animation-delay: 0.7s; }
+.particle9 { top: 40%; left: 65%; animation-delay: 1.2s; }
+.particle10 { top: 60%; left: 80%; animation-delay: 2.2s; }
+
+/* Pollen styling */
+.pollen {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 150, 0.4);
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.5;
+  animation: drift 25s ease-in-out infinite;
+}
+
+.pollen1 { top: 10%; left: 45%; animation-delay: 0s; }
+.pollen2 { top: 30%; left: 55%; animation-delay: 3s; }
+.pollen3 { top: 50%; left: 40%; animation-delay: 1.5s; }
+.pollen4 { top: 70%; left: 60%; animation-delay: 2s; }
+.pollen5 { top: 90%; left: 50%; animation-delay: 0.5s; }

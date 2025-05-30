@@ -5,6 +5,7 @@ import Accueil from "./accueil"; // Correction de la casse (important sous Linux
 import General from "./General";
 import InscrireAcheteur from "./formulaires/acheteur/inscrire_acheteur";
 import PaymentMethods from "./payment";
+import AssociationProfileForm from "./interface__association/profil_association";
 import Confirmation from "./confirmation";
 import Custom404 from "./custom404";
 import Login from "./formulaires/identifier/identifier";
@@ -20,6 +21,7 @@ import GestionPaniers from "./interface__commeçant/gestion-paniers";
 import GestionDons from "./interface__commeçant/gestion-dons";
 import ProductDetails from "./interface_utilisateur/product_details"; // Added import for ProductDetails
 import { path } from "framer-motion/client";
+import UserProfileForm from "./interface_utilisateur/profil_user"; // Import for user profile form
 import SignUpCommerçant from "./formulaires/commerçant/Logcomerçant";
 import SignUpAssociation from "./formulaires/association/LogAssociation";
 // Configuration robuste de React Query
@@ -80,6 +82,11 @@ export const router = createBrowserRouter([
         path: "interface_utilisateur",
         element: <Ui_utilisateur />,
       },
+
+      {
+        path: "profil_utilisateur",
+        element: <UserProfileForm />,
+      },
       {
         path: "product_details/:id",
         element: <ProductDetails />,
@@ -88,6 +95,11 @@ export const router = createBrowserRouter([
         path: "interface_association",
         element: <AssociationWelcome />,
       },
+      {
+        path: "association_profile_form",
+        element: <AssociationProfileForm />,
+      },
+      {},
       {
         path: "paiement_especes",
         element: <PaiementEspeces montant="XXXX.00DZ" />,

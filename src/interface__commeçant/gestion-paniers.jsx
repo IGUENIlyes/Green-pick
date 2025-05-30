@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import "./gestion-paniers.css";
+import { Link } from "react-router-dom";
 
 export default function GestionPaniers() {
   const [description, setDescription] = useState("");
@@ -137,18 +138,38 @@ export default function GestionPaniers() {
 
         {/* Navigation and profile section */}
         <div className="nav-links">
-          <a href="/accueil">Accueil</a>
-          <a href="/tableau-de-ventes">Tableau de ventes</a>
+          <Link to="/interface_commerçant">Accueil</Link>
+          <a
+            href="#sales-section"
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .querySelector(".sales-section")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Tableau de ventes
+          </a>
 
-          <a href="/contact">Contact</a>
-          <a href="/profile" className="profile-link">
+          <a
+            href="#footer"
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .querySelector("footer")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Contact
+          </a>
+          <Link to="/commerçant_profil" className="profile-link">
             <img
               src="/profile-icon.png"
               alt="Profile"
               className="profile-icon"
             />
             Profil
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -286,7 +307,7 @@ export default function GestionPaniers() {
         </form>
 
         {/* Sales Table Section */}
-        <div className="sales-section">
+        <div className="sales-section" id="sales-section">
           <h2 className="sales-title">Les Ventes</h2>
 
           <div className="sales-table-container">

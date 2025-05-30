@@ -1,23 +1,18 @@
 import { useState, useEffect } from "react";
-import "./modifier__profil.css";
 import { Eye } from "lucide-react";
 import { Link } from "react-router-dom";
+import "../interface__commeçant/modifier__profil.css"; // Reuse the same CSS
 
-const ProfileForm = () => {
+const UserProfileForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     nom: "Cameron",
     prenom: "Williamson",
     email: "Cameron",
-    nomCommerce: "nom",
-    registreCommerce: "XXXXXXXXXXX",
-    compteBancaire: "XXXXXXXXXXX",
     motDePasse: "",
     confirmMotDePasse: "",
     telephone: "+213 6 1723 1123",
-    wilaya: "Béjaïa",
-    adresse: "Parungkuda, Kab. Sukabumi",
   });
   const [profileImage, setProfileImage] = useState(
     "/placeholder.svg?height=60&width=60"
@@ -79,7 +74,6 @@ const ProfileForm = () => {
 
   return (
     <>
-      {/* Add inline style to the outermost wrapper for the dark green background */}
       <div style={{ backgroundColor: "#021a12", minHeight: "100vh" }}>
         <header className="didi">
           <a href="#" className="logo">
@@ -101,15 +95,15 @@ const ProfileForm = () => {
           <nav>
             <ul style={{ display: "flex", gap: "80px" }}>
               <li>
-                <Link to="/interface_commerçant"> Accueil</Link>
+                <Link to="/"> Accueil</Link>
               </li>
               <li>
                 <a
-                  href="#contact"
+                  href="#about"
                   onClick={(e) => {
                     e.preventDefault();
                     document
-                      .getElementById("contact")
+                      .getElementById("about")
                       ?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
@@ -164,7 +158,24 @@ const ProfileForm = () => {
               <div className="profile-photo">
                 <img src={profileImage} alt="Photo de profil" />
               </div>
-              <button className="change-photo-btn" onClick={handlePhotoChange}>
+              <button
+                className="change-photo-btn"
+                onClick={handlePhotoChange}
+                style={{
+                  backgroundColor: "#e0e0e0", // Light gray
+                  color: "#333333", // Darker text for better contrast
+                  borderColor: "#d0d0d0", // Slightly darker border
+                  transition: "all 0.3s ease", // Smooth transition
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = "#d0d0d0"; // Darker on hover
+                  e.currentTarget.style.boxShadow = "0 2px 5px rgba(0,0,0,0.1)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = "#e0e0e0"; // Back to original
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
                 Changez votre photo <span className="edit-icon">✏️</span>
               </button>
               <input
@@ -238,71 +249,6 @@ const ProfileForm = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Entrez votre email"
-                  />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label
-                    htmlFor="nomCommerce"
-                    style={{
-                      color: "#ffffff",
-                      textShadow: "0 1px 3px rgba(0,0,0,0.6)",
-                      fontWeight: 600,
-                    }}
-                  >
-                    Nom du commerce
-                  </label>
-                  <input
-                    type="text"
-                    id="nomCommerce"
-                    name="nomCommerce"
-                    value={formData.nomCommerce}
-                    onChange={handleChange}
-                    placeholder="Entrez le nom du commerce"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label
-                    htmlFor="registreCommerce"
-                    style={{
-                      color: "#ffffff",
-                      textShadow: "0 1px 3px rgba(0,0,0,0.6)",
-                      fontWeight: 600,
-                    }}
-                  >
-                    N° du registe de commerce
-                  </label>
-                  <input
-                    type="text"
-                    id="registreCommerce"
-                    name="registreCommerce"
-                    value={formData.registreCommerce}
-                    onChange={handleChange}
-                    placeholder="Entrez le numéro de registre"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label
-                    htmlFor="compteBancaire"
-                    style={{
-                      color: "#ffffff",
-                      textShadow: "0 1px 3px rgba(0,0,0,0.6)",
-                      fontWeight: 600,
-                    }}
-                  >
-                    N° de compte bancaire
-                  </label>
-                  <input
-                    type="text"
-                    id="compteBancaire"
-                    name="compteBancaire"
-                    value={formData.compteBancaire}
-                    onChange={handleChange}
-                    placeholder="Entrez le numéro de compte"
                   />
                 </div>
               </div>
@@ -405,9 +351,7 @@ const ProfileForm = () => {
                     </button>
                   </div>
                 </div>
-              </div>
 
-              <div className="form-row">
                 <div className="form-group">
                   <label
                     htmlFor="telephone"
@@ -426,48 +370,6 @@ const ProfileForm = () => {
                     value={formData.telephone}
                     onChange={handleChange}
                     placeholder="Entrez votre numéro"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label
-                    htmlFor="wilaya"
-                    style={{
-                      color: "#ffffff",
-                      textShadow: "0 1px 3px rgba(0,0,0,0.6)",
-                      fontWeight: 600,
-                    }}
-                  >
-                    Wilaya
-                  </label>
-                  <input
-                    type="text"
-                    id="wilaya"
-                    name="wilaya"
-                    value={formData.wilaya}
-                    onChange={handleChange}
-                    placeholder="Entrez votre wilaya"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label
-                    htmlFor="adresse"
-                    style={{
-                      color: "#ffffff",
-                      textShadow: "0 1px 3px rgba(0,0,0,0.6)",
-                      fontWeight: 600,
-                    }}
-                  >
-                    Adresse
-                  </label>
-                  <input
-                    type="text"
-                    id="adresse"
-                    name="adresse"
-                    value={formData.adresse}
-                    onChange={handleChange}
-                    placeholder="Entrez votre adresse"
                   />
                 </div>
               </div>
@@ -536,4 +438,4 @@ const ProfileForm = () => {
   );
 };
 
-export default ProfileForm;
+export default UserProfileForm;

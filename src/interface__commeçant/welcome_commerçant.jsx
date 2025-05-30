@@ -564,11 +564,42 @@ const WelcomeCommerçant = () => {
 
         {/* Navigation and profile section */}
         <div className="nav-links">
-          <a href="/accueil">Accueil</a>
-          <a href="/tableau-de-bord">Tableau de bord</a>
-          <a href="/donner">Donner</a>
-          <a href="/contact">Contact</a>
-          <a href="/profile" className="profile-link">
+          <a href="interface_commerçant">Accueil</a>
+          <a
+            href="#dashboard"
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .querySelector(".dashboard-container")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Tableau de bord
+          </a>
+          <a
+            href="#donation"
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .querySelector(".donation-container")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Donner
+          </a>
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .querySelector("footer")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Contact
+          </a>
+
+          <a href="/commerçant_profil" className="profile-link">
             <img
               src="/profile-icon.png"
               alt="Profile"
@@ -1032,7 +1063,7 @@ const WelcomeCommerçant = () => {
               visibilité auprès de nouveaux clients.
             </p>
             <Link
-              to="/gestion-paniers"
+              to="/gestion_paniers"
               className="paniers-button animate-button"
             >
               Gérer Mes Paniers
@@ -1180,9 +1211,10 @@ const WelcomeCommerçant = () => {
               Apprenez-en plus sur les différentes associations que nous
               soutenons et leur impact.
             </p>
-            <a href="/donation" className="donation-button animate-button">
+
+            <Link to="/gestion_dons" className="donation-button animate-button">
               Faire un Don <span className="arrow-icon">→</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

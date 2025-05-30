@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import OrderConfirmation from "./components/order-confirmation";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -14,8 +15,8 @@ export default function Confirmation() {
         animate={{ y: 0 }}
         transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
       >
-        <motion.a 
-          href="#" 
+        <motion.a
+          href="#"
           className="logo"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -30,7 +31,6 @@ export default function Confirmation() {
             </motion.li>
             <motion.li whileHover={{ scale: 1.1 }}>
               <Link to="/Login"> S'identifier </Link>
-             
             </motion.li>
             <motion.li whileHover={{ scale: 1.1 }}>
               <a
@@ -61,7 +61,7 @@ export default function Confirmation() {
           </ul>
         </nav>
       </motion.header>
-      <motion.main 
+      <motion.main
         className="min-h-screen"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

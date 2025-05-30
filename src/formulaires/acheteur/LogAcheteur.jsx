@@ -28,7 +28,7 @@ function SignUpAssociation() {
         <nav>
           <ul>
             <li>
-              <Link to="/accueil"> Accueil</Link>
+              <a href="#">Accueil</a>
             </li>
             <li>
               <Link to="/identifier"> S'identifier </Link>

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState, useRef } from "react";
 import "./gestion-paniers.css"; // Reuse the same CSS file
-
+import { Link } from "react-router-dom"; // Import Link for navigation
 export default function GestionDons() {
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
@@ -154,18 +154,38 @@ export default function GestionDons() {
 
         {/* Navigation and profile section */}
         <div className="nav-links">
-          <a href="/accueil">Accueil</a>
-          <a href="/tableau-de-bord">Tableau de dons</a>
-        
-          <a href="/contact">Contact</a>
-          <a href="/profile" className="profile-link">
+          <Link to="/interface_commerçant">Acceuil</Link>
+          <a
+            href="#donations-section"
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .querySelector(".donations-section")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Tableau de dons
+          </a>
+
+          <a
+            href="#footer"
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .querySelector("footer")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Contact
+          </a>
+          <Link to="/commerçant_profil" className="profile-link">
             <img
               src="/profile-icon.png"
               alt="Profile"
               className="profile-icon"
             />
             Profil
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -301,7 +321,7 @@ export default function GestionDons() {
         </form>
 
         {/* Donations Table Section */}
-        <div className="sales-section donations-section">
+        <div className="sales-section donations-section" id="donations-section">
           <h2 className="sales-title">Les Dons</h2>
 
           <div className="sales-table-container">

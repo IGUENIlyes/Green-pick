@@ -87,13 +87,16 @@ const MultiStepForm = () => {
     <>
       <header>
         <a href="#" className="logo">
-          <img className="oops" src="logo.png" alt="image"></img>
-          GREENPICK
+          <img className="logo-img" src="logo.png" alt="GreenPick Logo" />
+          <span className="logo-text">
+            <span className="green-letter">G</span>REEN
+            <span className="orange-letter">P</span>ICK
+          </span>
         </a>
         <nav>
           <ul>
             <li>
-              <a href="#">Accueil</a>
+              <Link to="/accueil"> Accueil</Link>
             </li>
             <li>
               <Link to="/identifier"> S'identifier </Link>

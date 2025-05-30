@@ -1694,32 +1694,6 @@ const HeaderGreenpick = ({
       </nav>
       {/* Icônes */}
       <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-        {/* Loupe */}
-        <div
-          style={{
-            background: "#f9fffc",
-            borderRadius: "50%",
-            width: 48,
-            height: 48,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow:
-              "0 4px 8px rgba(0, 0, 0, 0.3), 0 0 4px rgba(0, 0, 0, 0.2)",
-          }}
-        >
-          <svg
-            width="28"
-            height="28"
-            fill="none"
-            stroke="#1a9b8a"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <circle cx="11" cy="11" r="7" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
-        </div>
         {/* Cœur avec badge */}
         <div style={{ position: "relative" }}>
           <div
@@ -1772,31 +1746,35 @@ const HeaderGreenpick = ({
           )}
         </div>
         {/* Profil */}
-        <div
-          style={{
-            background: "#f9fffc",
-            borderRadius: "50%",
-            width: 48,
-            height: 48,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow:
-              "0 4px 8px rgba(0, 0, 0, 0.3), 0 0 4px rgba(0, 0, 0, 0.2)",
-          }}
-        >
-          <svg
-            width="28"
-            height="28"
-            fill="none"
-            stroke="#1a9b8a"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
+
+        <Link to="/association_profile_form">
+          <div
+            style={{
+              background: "#f9fffc",
+              borderRadius: "50%",
+              width: 48,
+              height: 48,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow:
+                "0 4px 8px rgba(0, 0, 0, 0.3), 0 0 4px rgba(0, 0, 0, 0.2)",
+            }}
           >
-            <circle cx="12" cy="8" r="4" />
-            <path d="M4 20c0-4 8-4 8-4s8 0 8 4" />
-          </svg>
-        </div>
+            <svg
+              width="28"
+              height="28"
+              fill="none"
+              stroke="#1a9b8a"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 8-4 8-4s8 0 8 4" />
+            </svg>
+          </div>
+        </Link>
+
         {/* Panier avec badge */}
         <div style={{ position: "relative" }}>
           <div

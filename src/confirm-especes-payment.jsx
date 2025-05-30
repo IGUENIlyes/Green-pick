@@ -1,23 +1,27 @@
 import "./confirm-especes-payment.css";
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 
 const PaiementEspeces = ({ montant = "XXXX.00DZ" }) => {
+  // Use useEffect to ensure background image loads properly
+  useEffect(() => {
+    // Create a full-page background
+    document.body.style.backgroundImage = "url('accueil.png')";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundAttachment = "fixed";
+    document.body.style.backgroundColor = "#021a12"; // Fallback color
 
+    // Cleanup function
+    return () => {
+      document.body.style.backgroundImage = "";
+      document.body.style.backgroundSize = "";
+      document.body.style.backgroundPosition = "";
+      document.body.style.backgroundAttachment = "";
+      document.body.style.backgroundColor = "";
+    };
+  }, []);
 
-
-    const backgroundLines = {
-        position: "absolute",
-        top: "0",
-        left: "0",
-        width: "100%",
-        height: "100%",
-        backgroundImage: "url('accueil.png')",
-        opacity: "0.9",
-        backgroundSize: "cover",
-        
-        zIndex: "-1",
-      };
   return (
     <>
       <header className="didi">
@@ -62,12 +66,23 @@ const PaiementEspeces = ({ montant = "XXXX.00DZ" }) => {
           </ul>
         </nav>
       </header>
-      <div className="paiement-container" style={{ position: 'relative' }}>
-        <div style={backgroundLines}></div>
+      <div
+        className="paiement-container"
+        style={{
+          position: "relative",
+          background: "transparent", // Make sure container doesn't have its own background
+        }}
+      >
+        {/* Remove the problematic div and use a page-level background instead */}
         <div className="paiement-card">
           <div className="paiement-header">
             <div className="icon-container">
-              <svg className="money-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                className="money-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
                   stroke="white"
@@ -82,14 +97,28 @@ const PaiementEspeces = ({ montant = "XXXX.00DZ" }) => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-                <path d="M2 10H22" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M2 14H22" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M2 10H22"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M2 14H22"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
             <h1 className="paiement-title">Paiement En Espèces</h1>
           </div>
 
-          <p className="paiement-description">Vous paierez à notre point de vente.</p>
+          <p className="paiement-description">
+            Vous paierez à notre point de vente.
+          </p>
 
           <div className="divider"></div>
 
@@ -99,21 +128,30 @@ const PaiementEspeces = ({ montant = "XXXX.00DZ" }) => {
               <span className="total-amount">{montant}</span>
             </div>
 
-            
-
             <Link to="/confirmation">
-            <button className="confirm-button">
-              Confirmer la commande
-              <svg className="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 6L9 17L4 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
+              <button className="confirm-button">
+                Confirmer la commande
+                <svg
+                  className="check-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20 6L9 17L4 12"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
             </Link>
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default PaiementEspeces
+export default PaiementEspeces;

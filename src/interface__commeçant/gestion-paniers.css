@@ -1,5 +1,5 @@
 .panier-container {
-    margin-top: 40px;
+  margin-top: 40px;
   width: 100%;
   min-height: 100vh;
   padding: 2rem;
@@ -449,6 +449,7 @@
   margin-top: 2rem;
   position: relative;
   z-index: 10;
+  scroll-margin-top: 100px; /* Added scroll margin for better scroll positioning */
 }
 
 .sales-title {
@@ -790,4 +791,10 @@
 .status-badge.unpaid {
   background-color: rgba(255, 82, 82, 0.15);
   color: #ff5252;
+}
+
+/* Footer scroll margin for proper scrolling */
+footer,
+.footer {
+  scroll-margin-top: 100px; /* Added scroll margin for better scroll positioning */
 }

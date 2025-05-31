@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./MultiStepFormAssociation.css";
 import FormInputAssociation from "./FormInputAssociation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 const MultiStepFormAssociation = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     respName: "",
@@ -14,6 +16,7 @@ const MultiStepFormAssociation = () => {
     confirmPassword: "",
     agreeTerms: false,
   });
+  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -25,12 +28,71 @@ const MultiStepFormAssociation = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Form submission logic here
-    console.log("Form submitted:", formData);
-    // You can add API call to submit the data
-    alert("Inscription réussie !");
+    setError("");
+
+    // Validate passwords match
+    if (formData.password !== formData.confirmPassword) {
+      setError("Les mots de passe ne correspondent pas");
+      return;
+    }
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/auth/signup/association/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          responsible_full_name: formData.respName,
+          email: formData.email,
+          password: formData.password,
+          phone: formData.phone,
+          association_name: formData.associationName,
+          association_address: formData.address
+        }),
+      });
+
+      // Check if the response is JSON
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Server returned non-JSON response");
+      }
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Store the tokens in localStorage
+        localStorage.setItem('access_token', data.tokens.access);
+        localStorage.setItem('refresh_token', data.tokens.refresh);
+        
+        // Show success message
+        alert("Inscription réussie !");
+        
+        // Redirect to the association dashboard or home page
+        navigate('/interface_association');
+      } else {
+        // Handle validation errors
+        if (data.detail) {
+          setError(data.detail);
+        } else {
+          const errorMessage = Object.entries(data)
+            .map(([key, value]) => `${key}: ${value.join(', ')}`)
+            .join('\n');
+          setError(errorMessage || "Une erreur est survenue lors de l'inscription");
+        }
+      }
+    } catch (err) {
+      console.error('Registration error:', err);
+      if (err.message === "Server returned non-JSON response") {
+        setError("Le serveur n'est pas disponible. Veuillez réessayer plus tard.");
+      } else {
+        setError("Une erreur est survenue lors de l'inscription. Veuillez réessayer.");
+      }
+    }
   };
 
   return (

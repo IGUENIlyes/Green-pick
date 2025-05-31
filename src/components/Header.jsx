@@ -330,7 +330,10 @@ const Header = ({
                   <div
                     key={product.id}
                     className="favorite-product-card"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    style={{
+                      animationDelay: `${index * 0.1}s`,
+                      position: "relative",
+                    }} // Added position relative for proper button placement
                   >
                     <div className="favorite-product-image">
                       <img
@@ -362,6 +365,36 @@ const Header = ({
                       className="remove-favorite-btn"
                       onClick={(e) => handleRemoveFavorite(product.id, e)}
                       aria-label="Retirer des favoris"
+                      style={{
+                        position: "absolute",
+                        top: "10px",
+                        right: "10px",
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        border: "none",
+                        borderRadius: "50%",
+                        width: "28px",
+                        height: "28px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
+                        zIndex: 5,
+                        transition: "all 0.2s ease",
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.backgroundColor = "#ff6b6b";
+                        e.currentTarget.style.transform = "scale(1.1)";
+                        e.currentTarget.querySelector("svg path").style.fill =
+                          "white";
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          "rgba(255, 255, 255, 0.7)";
+                        e.currentTarget.style.transform = "scale(1)";
+                        e.currentTarget.querySelector("svg path").style.fill =
+                          "currentColor";
+                      }}
                     >
                       <svg viewBox="0 0 24 24" width="18" height="18">
                         <path
@@ -369,6 +402,7 @@ const Header = ({
                           fill="currentColor"
                         />
                       </svg>
+                      ×
                     </button>
                   </div>
                 ))

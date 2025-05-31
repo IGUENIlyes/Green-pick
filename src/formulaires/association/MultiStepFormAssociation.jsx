@@ -110,6 +110,7 @@ const MultiStepFormAssociation = () => {
               <button
                 className="association-btn-return"
                 onClick={() => setCurrentStep(1)}
+                style={{ color: "#ffffff" }} // Added white text color
               >
                 Retour
               </button>
@@ -127,35 +128,81 @@ const MultiStepFormAssociation = () => {
         {/* Step 3: Password Setting */}
         {currentStep === 3 && (
           <div className="association-form-step association-form-transition">
-            <div className="association-password-input-container">
+            <div
+              className="association-password-input-container"
+              style={{ position: "relative" }}
+            >
               <FormInputAssociation
                 label="Mot de passe"
                 type={showPassword ? "text" : "password"}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                style={{ paddingRight: "70px" }} // Make room for the button
               />
               <button
                 type="button"
                 className="association-toggle-password"
                 onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  background: "transparent",
+                  border: "none",
+                  color: "#000000", // Black text
+                  fontWeight: "bold",
+                  padding: "5px 10px",
+                  cursor: "pointer",
+                  zIndex: 2,
+                  transition: "none",
+                }}
+                onMouseOver={(e) => {
+                  // Prevent any hover color change
+                  e.currentTarget.style.color = "#000000";
+                  e.currentTarget.style.background = "transparent";
+                }}
               >
                 {showPassword ? "Cacher" : "Voir"}
               </button>
             </div>
 
-            <div className="association-password-input-container">
+            <div
+              className="association-password-input-container"
+              style={{ position: "relative" }}
+            >
               <FormInputAssociation
                 label="Confirmer le mot de passe"
                 type={showConfirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
+                style={{ paddingRight: "70px" }} // Make room for the button
               />
               <button
                 type="button"
                 className="association-toggle-password"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  background: "transparent",
+                  border: "none",
+                  color: "#000000", // Black text
+                  fontWeight: "bold",
+                  padding: "5px 10px",
+                  cursor: "pointer",
+                  zIndex: 2,
+                  transition: "none",
+                }}
+                onMouseOver={(e) => {
+                  // Prevent any hover color change
+                  e.currentTarget.style.color = "#000000";
+                  e.currentTarget.style.background = "transparent";
+                }}
               >
                 {showConfirmPassword ? "Cacher" : "Voir"}
               </button>
@@ -178,6 +225,7 @@ const MultiStepFormAssociation = () => {
               <button
                 className="association-btn-return"
                 onClick={() => setCurrentStep(2)}
+                style={{ color: "#ffffff" }} // Added white text color
               >
                 Retour
               </button>

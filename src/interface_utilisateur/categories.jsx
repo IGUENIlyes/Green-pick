@@ -8,6 +8,7 @@ import TestimonialsSection from "./tem";
 import backgroundImage from "/forme sin (1).png";
 import Header from "../components/Header"; // Import the Header component
 import { Link } from "react-router-dom";
+import { color } from "chart.js/helpers";
 const categories = [
   {
     id: 1,
@@ -536,7 +537,7 @@ const CategorySection = () => {
         categoriesMenu={categoriesMenu}
       />
 
-      {/* Cart Popup with fixed styling */}
+      {/* Cart Popup with professional styling to match product_details page */}
       {cartPopupOpen && (
         <div
           className="cart-popup-overlay"
@@ -545,264 +546,434 @@ const CategorySection = () => {
             position: "fixed",
             top: 0,
             left: 0,
-            width: "100%",
-            height: "100%",
+            right: 0,
+            bottom: 0,
             backgroundColor: "rgba(0, 0, 0, 0.7)",
-            zIndex: 1000,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            padding: "20px",
+            zIndex: 1000,
+            backdropFilter: "blur(5px)",
+            animation: "fadeIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
           }}
         >
           <div
             className="cart-popup-container"
             onClick={(e) => e.stopPropagation()}
             style={{
-              width: "100%",
-              maxWidth: "600px",
-              maxHeight: "80vh",
-              backgroundColor: "#112222",
+              width: "90%",
+              maxWidth: "620px",
+              maxHeight: "85vh",
+              backgroundColor: "#024A3E", // Dark green background
               borderRadius: "12px",
-              boxShadow: "0 5px 25px rgba(0, 0, 0, 0.5)",
+              boxShadow: "0 10px 40px rgba(0, 0, 0, 0.35)",
               overflow: "hidden",
               display: "flex",
               flexDirection: "column",
+              animation: "slideUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)",
+              border: "1px solid rgba(255, 255, 255, 0.15)",
             }}
           >
+            {/* Header with gradient */}
             <div
               className="cart-popup-header"
               style={{
-                padding: "15px 20px",
-                borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                background: "linear-gradient(135deg, #025C4C 0%, #038D6A 100%)",
+                padding: "18px 24px",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                backgroundColor: "rgba(0, 0, 0, 0.2)",
+                position: "relative",
               }}
             >
               <h2
                 style={{
                   margin: 0,
-                  color: "#fff",
-                  fontSize: "1.2rem",
+                  fontSize: "1.4rem",
+                  fontWeight: 600,
+                  color: "#ffffff",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
                 }}
               >
-                Vos paniers sélectionnés :
+                <div
+                  style={{
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "50%",
+                    backgroundColor: "#93C572",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  <span style={{ fontSize: "18px" }}>🛒</span>
+                </div>
+                Mon Panier
               </h2>
               <button
                 className="close-popup-btn"
                 onClick={toggleCartPopup}
                 style={{
-                  background: "none",
+                  backgroundColor: "rgba(255, 255, 255, 0.15)",
                   border: "none",
-                  fontSize: "1.5rem",
-                  color: "#fff",
+                  borderRadius: "50%",
+                  width: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                   cursor: "pointer",
-                  padding: "0 5px",
+                  transition: "all 0.2s ease",
+                  color: "#fff",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "rgba(255, 255, 255, 0.25)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "rgba(255, 255, 255, 0.15)";
                 }}
               >
                 ×
               </button>
             </div>
 
+            {/* Cart Items */}
             <div
               className="cart-items-container"
               style={{
-                padding: "20px",
+                padding: "16px 24px",
+                maxHeight: "calc(85vh - 180px)",
                 overflowY: "auto",
+                backgroundColor: "#035E50", // Dark green background
                 flex: 1,
               }}
             >
               {cartItems && cartItems.length > 0 ? (
-                cartItems.map((item) => (
+                <div>
                   <div
-                    key={item.id}
-                    className="cart-item"
                     style={{
                       display: "flex",
-                      padding: "10px",
-                      borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-                      marginBottom: "10px",
-                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "0 0 12px 0",
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
+                      marginBottom: "16px",
+                      color: "#e0e0e0",
                     }}
                   >
-                    <img
-                      src={item.imageUrl || "/placeholder.png"}
-                      alt={item.title}
-                      className="cart-item-image"
-                      onClick={() => viewProductDetails(item.id)}
-                      style={{
-                        width: "60px",
-                        height: "60px",
-                        objectFit: "cover",
-                        borderRadius: "8px",
-                        marginRight: "15px",
-                        cursor: "pointer",
-                      }}
-                      onError={(e) => {
-                        e.target.src = "/placeholder.png";
-                        e.target.onerror = null;
-                      }}
-                    />
+                    <span style={{ fontSize: "0.9rem", fontWeight: 600 }}>
+                      Produit
+                    </span>
+                    <span style={{ fontSize: "0.9rem", fontWeight: 600 }}>
+                      Prix
+                    </span>
+                  </div>
+
+                  {cartItems.map((item) => (
                     <div
-                      className="cart-item-details"
-                      onClick={() => viewProductDetails(item.id)}
+                      key={item.id}
+                      className="cart-item"
                       style={{
-                        flex: 1,
-                        cursor: "pointer",
-                        color: "#fff",
+                        display: "flex",
+                        padding: "12px",
+                        marginBottom: "10px",
+                        borderRadius: "8px",
+                        backgroundColor: "#037362", // Dark green for items
+                        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                        position: "relative",
+                        transition: "all 0.2s ease",
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.boxShadow =
+                          "0 4px 12px rgba(0, 0, 0, 0.25)";
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.boxShadow =
+                          "0 2px 8px rgba(0, 0, 0, 0.15)";
                       }}
                     >
-                      <h3
-                        style={{
-                          margin: "0 0 5px 0",
-                          fontSize: "1rem",
-                        }}
-                      >
-                        {item.title}
-                      </h3>
                       <div
                         style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          marginBottom: "5px",
+                          width: "70px",
+                          height: "70px",
+                          borderRadius: "6px",
+                          overflow: "hidden",
+                          marginRight: "14px",
                         }}
                       >
+                        <img
+                          src={item.imageUrl || "/placeholder.png"}
+                          alt={item.title}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                          onClick={() => viewProductDetails(item.id)}
+                          onError={(e) => {
+                            e.target.src = "/placeholder.png";
+                            e.target.onerror = null;
+                          }}
+                        />
+                      </div>
+
+                      <div
+                        style={{
+                          flex: 1,
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div>
+                          <h3
+                            style={{
+                              margin: "0 0 4px 0",
+                              fontSize: "1rem",
+                              fontWeight: 600,
+                              color: "#ffffff",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => viewProductDetails(item.id)}
+                          >
+                            {item.title}
+                          </h3>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "6px",
+                              color: "#cccccc",
+                              fontSize: "0.85rem",
+                            }}
+                          >
+                            {[...Array(Math.floor(item.rating || 0))].map(
+                              (_, i) => (
+                                <span key={i} style={{ color: "#FFD700" }}>
+                                  ★
+                                </span>
+                              )
+                            )}
+                            <span>({item.rating || 0})</span>
+                          </div>
+                        </div>
+
                         <div
                           style={{
-                            color: "#93C572",
-                            fontWeight: "bold",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            marginTop: "8px",
                           }}
                         >
-                          {item.price}
-                        </div>
-                        <div
-                          style={{
-                            color: "#ccc",
-                            fontSize: "0.9rem",
-                          }}
-                        >
-                          Quantité: <span>{item.quantity || 1}</span>
+                          <div
+                            style={{
+                              backgroundColor: "rgba(147, 197, 114, 0.2)",
+                              padding: "3px 8px",
+                              borderRadius: "4px",
+                              fontSize: "0.85rem",
+                              color: "#a5e388",
+                              fontWeight: 600,
+                            }}
+                          >
+                            Quantité: {item.quantity || 1}
+                          </div>
+                          <div
+                            style={{
+                              color: "#a5e388",
+                              fontWeight: 700,
+                              fontSize: "1.05rem",
+                            }}
+                          >
+                            {item.price}
+                          </div>
                         </div>
                       </div>
-                      <div style={{ color: "#FFD700" }}>
-                        {[...Array(Math.floor(item.rating || 0))].map(
-                          (_, i) => (
-                            <span key={i} style={{ fontSize: "0.8rem" }}>
-                              ★
-                            </span>
-                          )
-                        )}
-                      </div>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          removeFromCart(item.id);
+                        }}
+                        style={{
+                          position: "absolute",
+                          top: "8px",
+                          right: "8px",
+                          background: "none",
+                          border: "none",
+                          fontSize: "14px",
+                          color: "#ccc",
+                          cursor: "pointer",
+                          padding: "4px",
+                          borderRadius: "50%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "20px",
+                          height: "20px",
+                          transition: "all 0.2s ease",
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.backgroundColor = "#ff5252";
+                          e.currentTarget.style.color = "white";
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.color = "#ccc";
+                        }}
+                      >
+                        ×
+                      </button>
                     </div>
-                    <button
-                      className="remove-cart-item-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        removeFromCart(item.id);
-                      }}
-                      aria-label="Retirer du panier"
-                      style={{
-                        background: "none",
-                        border: "none",
-                        fontSize: "1.2rem",
-                        color: "#ff5555",
-                        cursor: "pointer",
-                        padding: "0 5px",
-                      }}
-                    >
-                      ×
-                    </button>
-                  </div>
-                ))
+                  ))}
+                </div>
               ) : (
                 <div
-                  className="empty-cart"
                   style={{
-                    textAlign: "center",
-                    padding: "30px 20px",
-                    color: "#fff",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "50px 0",
+                    color: "#e0e0e0",
                   }}
                 >
-                  <div style={{ fontSize: "2rem", marginBottom: "10px" }}>🛒</div>
-                  <p
+                  <div
                     style={{
-                      fontSize: "1.1rem",
-                      margin: "0 0 10px 0",
+                      width: "70px",
+                      height: "70px",
+                      backgroundColor: "rgba(147, 197, 114, 0.2)",
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "16px",
+                      fontSize: "24px",
                     }}
                   >
+                    🛒
+                  </div>
+                  <h3 style={{ margin: "0 0 8px 0", color: "#ffffff" }}>
                     Votre panier est vide
-                  </p>
+                  </h3>
                   <p
                     style={{
-                      color: "#aaa",
-                      fontSize: "0.9rem",
                       margin: 0,
+                      textAlign: "center",
+                      maxWidth: "280px",
+                      fontSize: "0.9rem",
+                      lineHeight: 1.5,
+                      color: "#cccccc",
                     }}
                   >
-                    Ajoutez des paniers pour les sauver du gaspillage
+                    Ajoutez des produits à votre panier pour combattre le
+                    gaspillage alimentaire
                   </p>
                 </div>
               )}
             </div>
 
+            {/* Footer with totals and action buttons */}
             <div
-              className="cart-popup-footer"
               style={{
-                padding: "15px 20px",
-                borderTop: "1px solid rgba(255, 255, 255, 0.1)",
-                backgroundColor: "rgba(0, 0, 0, 0.2)",
+                padding: "20px 24px",
+                borderTop: "1px solid rgba(255, 255, 255, 0.15)",
+                backgroundColor: "#024A3E",
               }}
             >
+              {cartItems && cartItems.length > 0 && (
+                <div
+                  style={{
+                    marginBottom: "20px",
+                    padding: "14px",
+                    backgroundColor: "rgba(147, 197, 114, 0.15)",
+                    borderRadius: "8px",
+                    border: "1px solid rgba(147, 197, 114, 0.2)",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: "8px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      fontWeight: 700,
+                    }}
+                  >
+                    <span style={{ fontSize: "1.1rem", color: "#a5e388" }}>
+                      Total:
+                    </span>
+                    <span style={{ fontSize: "1.2rem", color: "#a5e388" }}>
+                      {formattedCartTotal}
+                    </span>
+                  </div>
+                </div>
+              )}
+
               <div
-                className="cart-total-section"
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: "15px",
-                  color: "#fff",
-                  fontWeight: "bold",
-                }}
-              >
-                <span>Total :</span>
-                <span style={{ color: "#93C572" }}>{formattedCartTotal}</span>
-              </div>
-              <div
-                className="cart-actions"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: "10px",
+                  gap: "12px",
                 }}
               >
                 <button
-                  className="continue-shopping-btn"
                   onClick={toggleCartPopup}
                   style={{
-                    padding: "8px 15px",
-                    backgroundColor: "#333",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "4px",
+                    flex: "1",
+                    padding: "12px",
+                    backgroundColor: "transparent",
+                    border: "2px solid rgba(147, 197, 114, 0.6)",
+                    borderRadius: "8px",
+                    color: "#ffffff",
+                    fontWeight: 600,
                     cursor: "pointer",
-                    flex: 1,
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      "rgba(147, 197, 114, 0.15)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
                   }}
                 >
                   Continuer vos achats
                 </button>
+
                 {cartItems && cartItems.length > 0 && (
                   <button
-                    className="proceed-payment-btn"
                     style={{
-                      padding: "8px 15px",
+                      flex: "1",
+                      padding: "12px",
                       backgroundColor: "#93C572",
-                      color: "#333",
                       border: "none",
-                      borderRadius: "4px",
+                      borderRadius: "8px",
+                      color: "white",
+                      fontWeight: 600,
                       cursor: "pointer",
-                      fontWeight: "bold",
-                      flex: 1,
+                      transition: "all 0.2s ease",
+                      boxShadow: "0 2px 8px rgba(147, 197, 114, 0.3)",
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.backgroundColor = "#7db35e";
+                      e.currentTarget.style.boxShadow =
+                        "0 4px 12px rgba(147, 197, 114, 0.4)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.backgroundColor = "#93C572";
+                      e.currentTarget.style.boxShadow =
+                        "0 2px 8px rgba(147, 197, 114, 0.3)";
                     }}
                   >
                     <Link
@@ -812,9 +983,10 @@ const CategorySection = () => {
                         textDecoration: "none",
                         display: "block",
                         width: "100%",
+                        height: "100%",
                       }}
                     >
-                      Accéder au paiement
+                      Passer la commande
                     </Link>
                   </button>
                 )}
@@ -1122,12 +1294,12 @@ const CategorySection = () => {
               <div className="product-content">
                 <div className="product-header">
                   <h3>{product.title}</h3>
-                  <p className="store-name">Supérette Abbas</p>
+                  <p style={{color : "darkgreen"}}>{product.location.name}</p>
                 </div>
                 <div className="product-footer">
                   <div className="rating">
                     <span className="rating-star">★</span>
-                    <span>{product.rating}</span>
+                    <span style={{ color: "black" }}>{product.rating}</span>
                   </div>
                   <div className="prices">
                     <span className="old-price">{product.originalPrice}</span>

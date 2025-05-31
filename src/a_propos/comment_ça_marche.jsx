@@ -626,7 +626,24 @@ const CommentCaMarche = () => {
                       <button
                         className="step-arrow prev-step"
                         onClick={prevStep}
-                        style={{ opacity: currentBuyerStep === 1 ? 0.5 : 1 }}
+                        style={{
+                          opacity: currentAssociationStep === 1 ? 0.5 : 1,
+                          transition: "opacity 0.3s ease",
+                          // Complete hover effect removal
+                          color: "#025C4C", // Set the text color explicitly
+                          backgroundColor: "transparent", // Set the background color explicitly
+                        }}
+                        // Add onMouseOver and onMouseOut to prevent any hover effects
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
+                        }}
                         disabled={currentBuyerStep === 1}
                       >
                         ←
@@ -646,8 +663,22 @@ const CommentCaMarche = () => {
                         className="step-arrow next-step"
                         onClick={nextStep}
                         style={{
-                          opacity:
-                            currentBuyerStep === totalBuyerSteps ? 0.5 : 1,
+                          opacity: currentAssociationStep === 1 ? 0.5 : 1,
+                          transition: "opacity 0.3s ease",
+                          // Complete hover effect removal
+                          color: "#025C4C", // Set the text color explicitly
+                          backgroundColor: "transparent", // Set the background color explicitly
+                        }}
+                        // Add onMouseOver and onMouseOut to prevent any hover effects
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
                         }}
                         disabled={currentBuyerStep === totalBuyerSteps}
                       >
@@ -701,7 +732,24 @@ const CommentCaMarche = () => {
                       <button
                         className="step-arrow prev-step"
                         onClick={prevMerchantStep}
-                        style={{ opacity: currentMerchantStep === 1 ? 0.5 : 1 }}
+                        style={{
+                          opacity: currentAssociationStep === 1 ? 0.5 : 1,
+                          transition: "opacity 0.3s ease",
+                          // Complete hover effect removal
+                          color: "#025C4C", // Set the text color explicitly
+                          backgroundColor: "transparent", // Set the background color explicitly
+                        }}
+                        // Add onMouseOver and onMouseOut to prevent any hover effects
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
+                        }}
                         disabled={currentMerchantStep === 1}
                       >
                         ←
@@ -723,10 +771,22 @@ const CommentCaMarche = () => {
                         className="step-arrow next-step"
                         onClick={nextMerchantStep}
                         style={{
-                          opacity:
-                            currentMerchantStep === totalMerchantSteps
-                              ? 0.5
-                              : 1,
+                          opacity: currentAssociationStep === 1 ? 0.5 : 1,
+                          transition: "opacity 0.3s ease",
+                          // Complete hover effect removal
+                          color: "#025C4C", // Set the text color explicitly
+                          backgroundColor: "transparent", // Set the background color explicitly
+                        }}
+                        // Add onMouseOver and onMouseOut to prevent any hover effects
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
                         }}
                         disabled={currentMerchantStep === totalMerchantSteps}
                       >
@@ -785,6 +845,21 @@ const CommentCaMarche = () => {
                         onClick={prevAssociationStep}
                         style={{
                           opacity: currentAssociationStep === 1 ? 0.5 : 1,
+                          transition: "opacity 0.3s ease",
+                          // Complete hover effect removal
+                          color: "#025C4C", // Set the text color explicitly
+                          backgroundColor: "transparent", // Set the background color explicitly
+                        }}
+                        // Add onMouseOver and onMouseOut to prevent any hover effects
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
                         }}
                         disabled={currentAssociationStep === 1}
                       >
@@ -811,6 +886,21 @@ const CommentCaMarche = () => {
                             currentAssociationStep === totalAssociationSteps
                               ? 0.5
                               : 1,
+                          transition: "opacity 0.3s ease",
+                          // Complete hover effect removal
+                          color: "#025C4C", // Set the text color explicitly
+                          backgroundColor: "transparent", // Set the background color explicitly
+                        }}
+                        // Add onMouseOver and onMouseOut to prevent any hover effects
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.color = "#025C4C";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.borderColor = "currentColor";
                         }}
                         disabled={
                           currentAssociationStep === totalAssociationSteps

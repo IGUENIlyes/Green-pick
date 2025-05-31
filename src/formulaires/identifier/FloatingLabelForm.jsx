@@ -102,7 +102,10 @@ export default function FloatingLabelForm() {
               </div>
 
               <div className="identifier-form-field">
-                <div className="identifier-input-container">
+                <div
+                  className="identifier-input-container"
+                  style={{ position: "relative" }}
+                >
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
@@ -111,11 +114,30 @@ export default function FloatingLabelForm() {
                     className="identifier-form-input"
                     placeholder="Mot de passe"
                     required
+                    style={{ paddingRight: "90px" }} // Make room for the button
                   />
                   <button
                     type="button"
                     className="identifier-toggle-password"
                     onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      position: "absolute",
+                      right: "10px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      background: "transparent",
+                      border: "none",
+                      color: "#ffffff", // Changed from #666 to white
+                      padding: "5px 10px",
+                      cursor: "pointer",
+                      zIndex: 2,
+                      transition: "none",
+                    }}
+                    onMouseOver={(e) => {
+                      // Prevent any hover color change
+                      e.currentTarget.style.color = "#ffffff"; // Changed from #666 to white
+                      e.currentTarget.style.background = "transparent";
+                    }}
                   >
                     {showPassword ? "Masquer" : "Afficher"}
                   </button>

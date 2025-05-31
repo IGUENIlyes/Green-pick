@@ -213,7 +213,7 @@
 }
 
 .product-card {
-  background: rgb(254, 248, 248);
+  background: rgb(224, 217, 217);
   border-radius: 25px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -270,7 +270,7 @@
 }
 
 .store-name {
-  color: #4caf50;
+  color: #ff0066;
   margin: 0;
   font-size: 16px;
   text-align: center;

@@ -1,14 +1,12 @@
 import React from "react";
 import { useEffect } from "react";
-
+import { Link } from "react-router-dom";
 export default function PolitiqueDeConfidentialite() {
-
-     useEffect(() => {
-       window.scrollTo(0, 0); // Scroll vers le haut au montage du composant
-     }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll vers le haut au montage du composant
+  }, []);
   const containerStyle = {
-
-     marginTop : "60px",
+    marginTop: "60px",
     backgroundColor: "#0a5043",
     backgroundImage: "linear-gradient(135deg, #0a5043 0%, #083b32 100%)",
     color: "white",
@@ -39,7 +37,6 @@ export default function PolitiqueDeConfidentialite() {
   };
 
   const sectionTitleStyle = {
-    
     color: "#4bff8c",
     fontSize: "1.3rem",
     fontWeight: "bold",
@@ -104,16 +101,19 @@ export default function PolitiqueDeConfidentialite() {
     <>
       <header>
         <a href="#" className="logo">
-          <img className="oops" src="logo.png" alt="image"></img>
-          GREENPICK
+          <img className="logo-img" src="logo.png" alt="GreenPick Logo" />
+          <span className="logo-text">
+            <span className="green-letter">G</span>REEN
+            <span className="orange-letter">P</span>ICK
+          </span>
         </a>
         <nav>
           <ul>
             <li>
-              <a href="#">Accueil</a>
+              <Link to="/accueil"> Accueil </Link>
             </li>
             <li>
-              <a href="#">S'identifier</a>
+              <Link to="/identifier"> S'identifier </Link>
             </li>
             <li>
               <a

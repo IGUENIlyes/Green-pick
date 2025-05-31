@@ -1694,6 +1694,7 @@ const HeaderGreenpick = ({
       </nav>
       {/* Icônes */}
       <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+       
         {/* Cœur avec badge */}
         <div style={{ position: "relative" }}>
           <div

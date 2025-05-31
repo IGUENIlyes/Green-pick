@@ -201,29 +201,86 @@ const MultiStepForm = () => {
 
           {currentStep === 2 && (
             <div className="commercant-form-step active-step">
-              <div className="commercant-password-input-container">
+              <div
+                className="commercant-password-input-container"
+                style={{ position: "relative" }}
+              >
                 <FormInput
                   type={showPassword ? "text" : "password"}
                   name="motDePasse"
                   placeholder="Mot de passe"
                   value={formData.motDePasse}
                   onChange={handleInputChange}
+                  style={{ paddingRight: "90px" }} // Make room for the button
                 />
                 <button
                   type="button"
                   className="commercant-toggle-password"
                   onClick={togglePasswordVisibility}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "transparent",
+                    border: "none",
+                    color: "#000000", // Changed to black
+                    padding: "5px 10px",
+                    cursor: "pointer",
+                    zIndex: 2,
+                    transition: "none",
+                    fontWeight: "bold", // Added bold
+                  }}
+                  onMouseOver={(e) => {
+                    // Prevent any hover color change
+                    e.currentTarget.style.color = "#000000"; // Changed to black
+                    e.currentTarget.style.background = "transparent";
+                  }}
                 >
                   {showPassword ? "Masquer" : "Afficher"}
                 </button>
               </div>
-              <FormInput
-                type={showPassword ? "text" : "password"}
-                name="confirmMotDePasse"
-                placeholder="Confirmez votre mot de passe"
-                value={formData.confirmMotDePasse}
-                onChange={handleInputChange}
-              />
+
+              <div
+                className="commercant-password-input-container"
+                style={{ position: "relative" }}
+              >
+                <FormInput
+                  type={showPassword ? "text" : "password"}
+                  name="confirmMotDePasse"
+                  placeholder="Confirmez votre mot de passe"
+                  value={formData.confirmMotDePasse}
+                  onChange={handleInputChange}
+                  style={{ paddingRight: "90px" }} // Make room for the button
+                />
+                <button
+                  type="button"
+                  className="commercant-toggle-password"
+                  onClick={togglePasswordVisibility}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "transparent",
+                    border: "none",
+                    color: "#000000", // Changed to black
+                    padding: "5px 10px",
+                    cursor: "pointer",
+                    zIndex: 2,
+                    transition: "none",
+                    fontWeight: "bold", // Added bold
+                  }}
+                  onMouseOver={(e) => {
+                    // Prevent any hover color change
+                    e.currentTarget.style.color = "#000000"; // Changed to black
+                    e.currentTarget.style.background = "transparent";
+                  }}
+                >
+                  {showPassword ? "Masquer" : "Afficher"}
+                </button>
+              </div>
+
               <div className="commercant-checkbox-container">
                 <input
                   type="checkbox"

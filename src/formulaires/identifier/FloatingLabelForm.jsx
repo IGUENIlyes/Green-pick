@@ -3,19 +3,183 @@
 import React from "react";
 import { useState } from "react";
 import "./floating-label-form.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+// Function to decode JWT token
+const decodeJWT = (token) => {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    console.error('Error decoding JWT:', error);
+    return null;
+  }
+};
 
 export default function FloatingLabelForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password);
+    setError("");
+    setIsLoading(true);
 
-    // Ici vous pouvez ajouter votre logique d'authentification
+    try {
+      console.log("Sending login request with:", { email, password });
+
+      const response = await fetch("http://127.0.0.1:8000/api/auth/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      console.log("Response status:", response.status);
+      console.log("Response headers:", Object.fromEntries(response.headers.entries()));
+
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Server returned non-JSON response");
+      }
+
+      const data = await response.json();
+      console.log("Response data:", data);
+
+      if (response.ok) {
+        // Decode the access token to get user information
+        const decodedToken = decodeJWT(data.access);
+        console.log("Decoded token:", decodedToken);
+
+        if (!decodedToken) {
+          throw new Error("Failed to decode token");
+        }
+
+        // Store tokens
+        localStorage.setItem("tokens", JSON.stringify({
+          access: data.access,
+          refresh: data.refresh
+        }));
+        
+        // Store user data with role from token
+        const userData = {
+          email: email, // We can use the email from the form since it's not in the token
+          role: decodedToken.role,
+          userId: decodedToken.user_id
+        };
+        console.log("Storing user data:", userData);
+        localStorage.setItem("userData", JSON.stringify(userData));
+
+        // Show success message
+        alert("Connexion réussie !");
+        
+        // Log before redirection
+        console.log("Attempting to redirect user with role:", decodedToken.role);
+        
+        // Redirect based on user role
+        switch (decodedToken.role) {
+          case 'client':
+            console.log("Redirecting to client interface");
+            navigate('/interface_utilisateur');
+            break;
+          case 'merchant':
+            console.log("Redirecting to merchant interface");
+            navigate('/interface_commerçant');
+            break;
+          case 'association':
+            console.log("Redirecting to association interface");
+            navigate('/interface_association');
+            break;
+          default:
+            console.log("Unknown role, redirecting to home");
+            navigate('/');
+            break;
+        }
+      } else {
+        // Handle different types of error responses
+        if (data.detail) {
+          setError(data.detail);
+        } else if (data.message) {
+          setError(data.message);
+        } else if (data.error) {
+          setError(data.error);
+        } else {
+          setError("Email ou mot de passe incorrect");
+        }
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError(
+        err.message === "Server returned non-JSON response"
+          ? "Erreur de communication avec le serveur"
+          : "Une erreur est survenue lors de la connexion"
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  // Check if user is already logged in
+  React.useEffect(() => {
+    try {
+      const storedUserData = localStorage.getItem('userData');
+      const storedTokens = localStorage.getItem('tokens');
+
+      console.log("Checking stored user data:", storedUserData);
+      console.log("Stored tokens:", storedTokens);
+
+      if (storedUserData && storedTokens) {
+        const userData = JSON.parse(storedUserData);
+        const tokens = JSON.parse(storedTokens);
+
+        if (tokens && tokens.access) {
+          // Decode the stored token to verify role
+          const decodedToken = decodeJWT(tokens.access);
+          console.log("Decoded stored token:", decodedToken);
+
+          if (decodedToken) {
+            console.log("User is logged in, role:", decodedToken.role);
+            // Redirect based on stored role
+            switch (decodedToken.role) {
+              case 'client':
+                console.log("Redirecting to client interface");
+                navigate('/interface_utilisateur');
+                break;
+              case 'merchant':
+                console.log("Redirecting to merchant interface");
+                navigate('/interface_commerçant');
+                break;
+              case 'association':
+                console.log("Redirecting to association interface");
+                navigate('/interface_association');
+                break;
+              default:
+                console.log("Unknown role, staying on login page");
+                break;
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error checking stored data:", error);
+      // Clear potentially corrupted data
+      localStorage.removeItem('userData');
+      localStorage.removeItem('tokens');
+    }
+  }, [navigate]);
 
   return (
     <>
@@ -86,6 +250,8 @@ export default function FloatingLabelForm() {
           <div className="identifier-form-content">
             <h1 className="identifier-form-title">S'identifier</h1>
 
+            {error && <div className="identifier-error-message">{error}</div>}
+
             <form onSubmit={handleSubmit} className="identifier-login-form">
               <div className="identifier-form-field">
                 <div className="identifier-input-container">
@@ -97,6 +263,7 @@ export default function FloatingLabelForm() {
                     className="identifier-form-input"
                     placeholder="Email"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -114,12 +281,14 @@ export default function FloatingLabelForm() {
                     className="identifier-form-input"
                     placeholder="Mot de passe"
                     required
+                    disabled={isLoading}
                     style={{ paddingRight: "90px" }} // Make room for the button
                   />
                   <button
                     type="button"
                     className="identifier-toggle-password"
                     onClick={() => setShowPassword(!showPassword)}
+                    disabled={isLoading}
                     style={{
                       position: "absolute",
                       right: "10px",
@@ -127,15 +296,14 @@ export default function FloatingLabelForm() {
                       transform: "translateY(-50%)",
                       background: "transparent",
                       border: "none",
-                      color: "#ffffff", // Changed from #666 to white
+                      color: "#ffffff",
                       padding: "5px 10px",
                       cursor: "pointer",
                       zIndex: 2,
                       transition: "none",
                     }}
                     onMouseOver={(e) => {
-                      // Prevent any hover color change
-                      e.currentTarget.style.color = "#ffffff"; // Changed from #666 to white
+                      e.currentTarget.style.color = "#ffffff";
                       e.currentTarget.style.background = "transparent";
                     }}
                   >
@@ -144,8 +312,12 @@ export default function FloatingLabelForm() {
                 </div>
               </div>
 
-              <button type="submit" className="identifier-submit-button">
-                S'identifier
+              <button 
+                type="submit" 
+                className="identifier-submit-button"
+                disabled={isLoading}
+              >
+                {isLoading ? "Connexion en cours..." : "S'identifier"}
               </button>
             </form>
 

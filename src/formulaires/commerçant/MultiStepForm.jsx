@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import FormInput from "./FormInput";
 import ProgressDots from "./ProgressDots";
 import "./MultiStepForm.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -20,7 +20,9 @@ const MultiStepForm = () => {
     acceptConditions: false,
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
   const formRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -60,12 +62,89 @@ const MultiStepForm = () => {
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateStep(2)) {
-      // Ici, vous pourriez envoyer les données à votre API
-      console.log("Formulaire soumis avec succès:", formData);
-      alert("Inscription réussie!");
+    setError("");
+
+    if (!validateStep(2)) {
+      setError("Veuillez remplir tous les champs requis");
+      return;
+    }
+
+    try {
+      console.log('Sending merchant registration request with data:', {
+        first_name: formData.prenom,
+        last_name: formData.nom,
+        email: formData.email,
+        phone: formData.telephone,
+        commerce_name: formData.nomCommerce,
+        commerce_address: formData.adresseCommerce,
+        commercial_register: formData.registreCommerce,
+        password: formData.motDePasse
+      });
+
+      const response = await fetch('http://127.0.0.1:8000/api/auth/signup/merchant/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          first_name: formData.prenom,
+          last_name: formData.nom,
+          email: formData.email,
+          phone: formData.telephone,
+          commerce_name: formData.nomCommerce,
+          commerce_address: formData.adresseCommerce,
+          commercial_register: formData.registreCommerce,
+          password: formData.motDePasse
+        }),
+      });
+
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+      let data;
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+        console.log('Response data:', data);
+      } else {
+        const text = await response.text();
+        console.log('Non-JSON response:', text);
+        throw new Error(`Server returned non-JSON response: ${text}`);
+      }
+
+      if (response.ok) {
+        // Store the tokens in localStorage
+        if (data.tokens && data.tokens.access && data.tokens.refresh) {
+          localStorage.setItem('access_token', data.tokens.access);
+          localStorage.setItem('refresh_token', data.tokens.refresh);
+          
+          // Show success message
+          alert("Inscription réussie !");
+          
+          // Redirect to the merchant interface
+          navigate('/interface_commerçant');
+        } else {
+          throw new Error('Invalid response format: missing tokens');
+        }
+      } else {
+        // Handle validation errors
+        if (data.detail) {
+          setError(data.detail);
+        } else if (typeof data === 'object') {
+          const errorMessage = Object.entries(data)
+            .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(', ') : value}`)
+            .join('\n');
+          setError(errorMessage || "Une erreur est survenue lors de l'inscription");
+        } else {
+          setError("Une erreur est survenue lors de l'inscription");
+        }
+      }
+    } catch (err) {
+      console.error('Registration error:', err);
+      setError(err.message || "Une erreur est survenue lors de l'inscription. Veuillez réessayer.");
     }
   };
 
@@ -138,6 +217,7 @@ const MultiStepForm = () => {
         <div className="form-decoration form-rectangle"></div>
 
         <h2 className="commercant-form-title">Inscription Commerçant</h2>
+        {error && <div className="commercant-error-message">{error}</div>}
 
         <form ref={formRef} className="commercant-multi-step-form">
           {currentStep === 0 && (
@@ -170,6 +250,13 @@ const MultiStepForm = () => {
                 value={formData.telephone}
                 onChange={handleInputChange}
               />
+              <button
+                type="button"
+                className="commercant-btn-submit"
+                onClick={handleContinue}
+              >
+                Continuer
+              </button>
             </div>
           )}
 
@@ -196,6 +283,22 @@ const MultiStepForm = () => {
                 value={formData.registreCommerce}
                 onChange={handleInputChange}
               />
+              <div className="commercant-form-buttons">
+                <button
+                  type="button"
+                  className="commercant-btn-submit commercant-btn-back"
+                  onClick={() => setCurrentStep(currentStep - 1)}
+                >
+                  Retour
+                </button>
+                <button
+                  type="button"
+                  className="commercant-btn-submit"
+                  onClick={handleContinue}
+                >
+                  Continuer
+                </button>
+              </div>
             </div>
           )}
 
@@ -211,7 +314,7 @@ const MultiStepForm = () => {
                   placeholder="Mot de passe"
                   value={formData.motDePasse}
                   onChange={handleInputChange}
-                  style={{ paddingRight: "90px" }} // Make room for the button
+                  style={{ paddingRight: "90px" }}
                 />
                 <button
                   type="button"
@@ -224,16 +327,15 @@ const MultiStepForm = () => {
                     transform: "translateY(-50%)",
                     background: "transparent",
                     border: "none",
-                    color: "#000000", // Changed to black
+                    color: "#000000",
                     padding: "5px 10px",
                     cursor: "pointer",
                     zIndex: 2,
                     transition: "none",
-                    fontWeight: "bold", // Added bold
+                    fontWeight: "bold",
                   }}
                   onMouseOver={(e) => {
-                    // Prevent any hover color change
-                    e.currentTarget.style.color = "#000000"; // Changed to black
+                    e.currentTarget.style.color = "#000000";
                     e.currentTarget.style.background = "transparent";
                   }}
                 >
@@ -246,73 +348,47 @@ const MultiStepForm = () => {
                 style={{ position: "relative" }}
               >
                 <FormInput
-                  type={showPassword ? "text" : "password"}
+                  type="password"
                   name="confirmMotDePasse"
                   placeholder="Confirmez votre mot de passe"
                   value={formData.confirmMotDePasse}
                   onChange={handleInputChange}
-                  style={{ paddingRight: "90px" }} // Make room for the button
                 />
-                <button
-                  type="button"
-                  className="commercant-toggle-password"
-                  onClick={togglePasswordVisibility}
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    background: "transparent",
-                    border: "none",
-                    color: "#000000", // Changed to black
-                    padding: "5px 10px",
-                    cursor: "pointer",
-                    zIndex: 2,
-                    transition: "none",
-                    fontWeight: "bold", // Added bold
-                  }}
-                  onMouseOver={(e) => {
-                    // Prevent any hover color change
-                    e.currentTarget.style.color = "#000000"; // Changed to black
-                    e.currentTarget.style.background = "transparent";
-                  }}
-                >
-                  {showPassword ? "Masquer" : "Afficher"}
-                </button>
               </div>
 
-              <div className="commercant-checkbox-container">
+              <div className="commercant-checkbox-group">
                 <input
                   type="checkbox"
                   id="acceptConditions"
                   name="acceptConditions"
                   checked={formData.acceptConditions}
                   onChange={handleInputChange}
+                  required
                 />
                 <label htmlFor="acceptConditions">
                   J'accepte les Conditions d'utilisation
                 </label>
               </div>
+
+              <div className="commercant-form-buttons">
+                <button
+                  type="button"
+                  className="commercant-btn-submit commercant-btn-back"
+                  onClick={() => setCurrentStep(currentStep - 1)}
+                >
+                  Retour
+                </button>
+                <button
+                  type="submit"
+                  className="commercant-btn-submit"
+                  onClick={handleSubmit}
+                  disabled={!formData.acceptConditions}
+                >
+                  S'inscrire
+                </button>
+              </div>
             </div>
           )}
-
-          <ProgressDots currentStep={currentStep} totalSteps={3} />
-
-          <button
-            type="button"
-            className="commercant-btn-continue"
-            onClick={currentStep < 2 ? handleContinue : handleSubmit}
-          >
-            {currentStep < 2 ? "Continuer" : "S'inscrire"}
-          </button>
-
-          <div className="commercant-login-link">
-            Déjà inscrit(e) ?{" "}
-            <Link to="/identifier" className="commercant-identifier-link">
-              {" "}
-              S'identifier
-            </Link>
-          </div>
         </form>
       </div>
     </>

@@ -192,7 +192,7 @@ const WelcomeCommerçant = () => {
     const container = document.querySelector(".content-container");
 
     const moveSpotlight = (e) => {
-      if (!container) return;
+      if (!container || !spotlight) return;
 
       const rect = container.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -202,7 +202,16 @@ const WelcomeCommerçant = () => {
       spotlight.style.setProperty("--y", `${y}%`);
     };
 
-    document.addEventListener("mousemove", moveSpotlight);
+    if (spotlight && container) {
+      document.addEventListener("mousemove", moveSpotlight);
+    }
+
+    // Cleanup function
+    return () => {
+      document.removeEventListener("mousemove", handleNatureCursor);
+      document.removeEventListener("click", handleNatureCursor);
+      document.removeEventListener("mousemove", moveSpotlight);
+    };
 
     // Ajouter des animations formidables aux cartes du tableau de bord
     const dashboardCards = document.querySelectorAll(".dashboard-card");
@@ -255,13 +264,7 @@ const WelcomeCommerçant = () => {
         animBg.appendChild(particle);
       }
     });
-
-    return () => {
-      document.removeEventListener("mousemove", handleNatureCursor);
-      document.removeEventListener("click", handleNatureCursor);
-      document.removeEventListener("mousemove", moveSpotlight);
-    };
-  }, []);
+  }, []); // Empty dependency array means this effect runs once on mount
 
   // Effet séparé pour gérer uniquement la création des graphiques
   useEffect(() => {

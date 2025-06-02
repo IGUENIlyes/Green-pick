@@ -10,6 +10,8 @@ export default function GestionPaniers() {
   const [delaiRecuperation, setDelaiRecuperation] = useState(""); // New state for pickup deadline
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // Mock sales data
   const salesData = [
@@ -102,15 +104,213 @@ export default function GestionPaniers() {
     fileInputRef.current?.click();
   };
 
-  const handleSubmit = (e) => {
+  // Function to refresh the token
+  const refreshToken = async (refreshToken) => {
+    try {
+      console.log('Attempting to refresh token with:', refreshToken); // Debug log
+      const response = await fetch('http://127.0.0.1:8000/token/refresh/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ refresh: refreshToken }),
+      });
+
+      console.log('Refresh response status:', response.status); // Debug log
+      
+      // Check if response is JSON
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        console.error('Non-JSON response received:', await response.text());
+        throw new Error("Réponse invalide du serveur");
+      }
+
+      const responseData = await response.json();
+      console.log('Refresh response data:', responseData); // Debug log
+
+      if (response.ok) {
+        // Store both the new access token and keep the refresh token
+        const currentTokens = JSON.parse(localStorage.getItem('tokens') || '{}');
+        const newTokens = {
+          ...currentTokens,
+          access: responseData.access,
+          refresh: currentTokens.refresh
+        };
+        
+        localStorage.setItem('tokens', JSON.stringify(newTokens));
+        console.log('New tokens stored:', newTokens); // Debug log
+        return responseData.access;
+      } else {
+        // If refresh fails, clear tokens and throw error
+        localStorage.removeItem('tokens');
+        throw new Error(responseData.detail || "Session expirée, veuillez vous reconnecter");
+      }
+    } catch (error) {
+      console.error('Error refreshing token:', error);
+      // Clear tokens on error
+      localStorage.removeItem('tokens');
+      throw new Error("Erreur de rafraîchissement du token, veuillez vous reconnecter");
+    }
+  };
+
+  // Check token expiration before making a request
+  const checkTokenExpiration = async (tokens) => {
+    if (!tokens || !tokens.access || !tokens.refresh) {
+      console.log('Missing tokens:', tokens); // Debug log
+      throw new Error("Tokens d'authentification manquants");
+    }
+
+    try {
+      const tokenParts = tokens.access.split('.');
+      if (tokenParts.length !== 3) {
+        throw new Error("Format de token invalide");
+      }
+
+      const tokenPayload = JSON.parse(atob(tokenParts[1]));
+      console.log('Token payload:', tokenPayload); // Debug log
+      
+      const expirationTime = tokenPayload.exp * 1000; // Convert to milliseconds
+      const currentTime = Date.now();
+      console.log('Token expiration check:', { expirationTime, currentTime }); // Debug log
+
+      if (currentTime >= expirationTime) {
+        console.log('Token expired, refreshing...');
+        const newAccessToken = await refreshToken(tokens.refresh);
+        return {
+          ...tokens,
+          access: newAccessToken
+        };
+      }
+
+      return tokens;
+    } catch (error) {
+      console.error('Error checking token expiration:', error);
+      throw error;
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Traitement du formulaire
-    alert(`Panier ajouté avec succès!
-    Description: ${description}
-    Prix: ${prix}
-    Valeur: ${valeur}
-    Quantité: ${quantite}
-    Délai de récupération: ${delaiRecuperation}`); // Added to alert
+    setIsLoading(true);
+    setError("");
+
+    try {
+      // Get the authentication token from localStorage
+      const tokensStr = localStorage.getItem('tokens');
+      console.log('Raw tokens from localStorage:', tokensStr); // Debug log
+      
+      if (!tokensStr) {
+        setError("Vous devez être connecté pour créer un panier");
+        // Redirect to login page after a short delay
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+        return;
+      }
+
+      let tokens;
+      try {
+        tokens = JSON.parse(tokensStr);
+        console.log('Parsed tokens:', tokens); // Debug log
+      } catch (parseError) {
+        console.error('Error parsing tokens:', parseError);
+        setError("Erreur de format des tokens d'authentification");
+        // Redirect to login page after a short delay
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+        return;
+      }
+
+      if (!tokens.access || !tokens.refresh) {
+        setError("Tokens d'authentification incomplets");
+        // Redirect to login page after a short delay
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+        return;
+      }
+
+      // Check and refresh token if needed
+      tokens = await checkTokenExpiration(tokens);
+      console.log('Tokens after refresh check:', tokens); // Debug log
+
+      // Create FormData to handle file upload
+      const formData = new FormData();
+      formData.append('description', description);
+      formData.append('price', prix);  // Price after sale
+      formData.append('value', valeur);  // Price before sale
+      formData.append('quantity', quantite);
+      formData.append('expiry_date', delaiRecuperation);
+      
+      // Add image if it exists
+      if (fileInputRef.current?.files[0]) {
+        formData.append('image', fileInputRef.current.files[0]);
+      }
+
+      // Log the request details
+      console.log('Request URL:', "http://127.0.0.1:8000/api/products/create/");
+      console.log('Request headers:', {
+        'Authorization': `Bearer ${tokens.access}`,
+        'Accept': 'application/json',
+      });
+      console.log('Form data:', Object.fromEntries(formData));
+
+      // Make the API call to CreateProductView
+      const response = await fetch("http://127.0.0.1:8000/api/products/create/", {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${tokens.access}`,
+          'Accept': 'application/json',
+        },
+        body: formData
+      });
+
+      console.log('Response status:', response.status); // Debug log
+      console.log('Response headers:', Object.fromEntries(response.headers.entries())); // Debug log
+
+      if (response.status === 401) {
+        const errorData = await response.json().catch(() => ({}));
+        console.log('401 Error details:', errorData); // Debug log
+        console.log('Token used:', tokens.access); // Debug log
+        setError(`Erreur d'authentification: ${errorData.detail || 'Token invalide ou expiré'}`);
+        // Redirect to login page after a short delay
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+        return;
+      }
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.log('Error response:', errorData); // Debug log
+        setError(errorData.detail || "Erreur lors de la création du panier");
+        return;
+      }
+
+      const data = await response.json();
+      console.log('Success response:', data); // Debug log
+      
+      // Show success message
+      alert("Panier créé avec succès!");
+      
+      // Reset form
+      handleReset();
+
+    } catch (err) {
+      console.error("Error creating product:", err);
+      setError(err.message || "Une erreur est survenue lors de la création du panier");
+      // If there's an authentication error, redirect to login
+      if (err.message.includes("Session expirée") || err.message.includes("authentication")) {
+        // Redirect to login page after a short delay
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleReset = () => {

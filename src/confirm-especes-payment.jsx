@@ -1,18 +1,27 @@
 import "./confirm-especes-payment.css";
-import { Link } from "react-router-dom";
-import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
-const PaiementEspeces = ({ montant = "XXXX.00DZ" }) => {
-  // Use useEffect to ensure background image loads properly
+const PaiementEspeces = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [cartTotal, setCartTotal] = useState(0);
+
   useEffect(() => {
+    // Get cart total from localStorage
+    const total = localStorage.getItem('cartTotal');
+    if (total) {
+      setCartTotal(parseFloat(total));
+    }
+
     // Create a full-page background
     document.body.style.backgroundImage = "url('accueil.png')";
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundAttachment = "fixed";
-    document.body.style.backgroundColor = "#021a12"; // Fallback color
+    document.body.style.backgroundColor = "#021a12";
 
-    // Cleanup function
     return () => {
       document.body.style.backgroundImage = "";
       document.body.style.backgroundSize = "";
@@ -21,6 +30,123 @@ const PaiementEspeces = ({ montant = "XXXX.00DZ" }) => {
       document.body.style.backgroundColor = "";
     };
   }, []);
+
+  const handleConfirmOrder = async () => {
+    try {
+      setIsLoading(true);
+      setError("");
+
+      // Get cart items from localStorage
+      const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+      console.log('Cart items:', cartItems);
+      
+      if (cartItems.length === 0) {
+        setError("Votre panier est vide");
+        return;
+      }
+
+      // Get auth token and check user role
+      const tokens = JSON.parse(localStorage.getItem('tokens'));
+      console.log('Auth token:', tokens?.access ? 'Present' : 'Missing');
+      
+      if (!tokens?.access) {
+        setError("Vous devez être connecté pour confirmer votre commande");
+        navigate('/identifier', { state: { from: '/paiement_especes' } });
+        return;
+      }
+
+      // Decode JWT token to check role
+      const tokenPayload = JSON.parse(atob(tokens.access.split('.')[1]));
+      console.log('User role:', tokenPayload.role);
+      
+      if (tokenPayload.role !== 'client') {
+        setError("Seuls les clients peuvent effectuer des réservations");
+        navigate('/identifier', { state: { from: '/paiement_especes' } });
+        return;
+      }
+
+      // Create orders for each cart item
+      for (const item of cartItems) {
+        const requestData = {
+          pack: item.id,
+          quantity: item.quantity
+        };
+        console.log('Sending request with data:', requestData);
+
+        try {
+          const response = await fetch('http://127.0.0.1:8000/api/orders/reserve/client/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${tokens.access}`,
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(requestData),
+          });
+
+          console.log('Response status:', response.status);
+          console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+          // Check if response is JSON
+          const contentType = response.headers.get("content-type");
+          let errorMessage = "Une erreur est survenue lors de la réservation";
+
+          if (contentType && contentType.includes("application/json")) {
+            const data = await response.json();
+            console.log('Response data:', data);
+            
+            if (!response.ok) {
+              if (response.status === 403) {
+                setError("Vous n'avez pas les permissions nécessaires pour effectuer cette action");
+                localStorage.removeItem('tokens');
+                navigate('/identifier', { state: { from: '/paiement_especes' } });
+                return;
+              }
+              // Handle non_field_errors array
+              if (data.non_field_errors && Array.isArray(data.non_field_errors)) {
+                errorMessage = data.non_field_errors[0];
+              } else {
+                errorMessage = data.detail || data.message || errorMessage;
+              }
+              throw new Error(errorMessage);
+            }
+          } else {
+            // Handle non-JSON response
+            if (!response.ok) {
+              const text = await response.text();
+              console.log('Non-JSON response:', text);
+              
+              if (response.status === 500) {
+                errorMessage = "Erreur serveur. Veuillez réessayer plus tard.";
+                console.error('Server error details:', text);
+              } else if (response.status === 403) {
+                setError("Vous n'avez pas les permissions nécessaires pour effectuer cette action");
+                localStorage.removeItem('tokens');
+                navigate('/identifier', { state: { from: '/paiement_especes' } });
+                return;
+              }
+              throw new Error(errorMessage);
+            }
+          }
+        } catch (itemError) {
+          console.error('Error processing item:', item, itemError);
+          throw itemError;
+        }
+      }
+
+      // Clear cart from localStorage
+      localStorage.removeItem('cartItems');
+      localStorage.removeItem('cartTotal');
+
+      // Navigate to confirmation page
+      navigate('/confirmation');
+    } catch (err) {
+      console.error('Order confirmation error:', err);
+      setError(err.message || "Une erreur est survenue lors de la confirmation de la commande");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -66,14 +192,7 @@ const PaiementEspeces = ({ montant = "XXXX.00DZ" }) => {
           </ul>
         </nav>
       </header>
-      <div
-        className="paiement-container"
-        style={{
-          position: "relative",
-          background: "transparent", // Make sure container doesn't have its own background
-        }}
-      >
-        {/* Remove the problematic div and use a page-level background instead */}
+      <div className="paiement-container">
         <div className="paiement-card">
           <div className="paiement-header">
             <div className="icon-container">
@@ -122,15 +241,25 @@ const PaiementEspeces = ({ montant = "XXXX.00DZ" }) => {
 
           <div className="divider"></div>
 
+          {error && (
+            <div className="error-message" style={{ color: '#ff4444', marginBottom: '1rem', textAlign: 'center' }}>
+              {error}
+            </div>
+          )}
+
           <div className="paiement-footer">
             <div className="total-container">
               <span className="total-label">Total à payer :</span>
-              <span className="total-amount">{montant}</span>
+              <span className="total-amount">{cartTotal.toFixed(2)} DZD</span>
             </div>
 
-            <Link to="/confirmation">
-              <button className="confirm-button">
-                Confirmer la commande
+            <button 
+              className="confirm-button"
+              onClick={handleConfirmOrder}
+              disabled={isLoading}
+            >
+              {isLoading ? 'Confirmation en cours...' : 'Confirmer la commande'}
+              {!isLoading && (
                 <svg
                   className="check-icon"
                   viewBox="0 0 24 24"
@@ -145,8 +274,8 @@ const PaiementEspeces = ({ montant = "XXXX.00DZ" }) => {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </button>
-            </Link>
+              )}
+            </button>
           </div>
         </div>
       </div>

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import "../interface__commeçant/modifier__profil.css"; // Reuse the same CSS
 import { Eye } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AssociationProfileForm = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -20,6 +21,13 @@ const AssociationProfileForm = () => {
   const [profileImage, setProfileImage] = useState(
     "/placeholder.svg?height=60&width=60"
   );
+
+  const handleLogout = () => {
+    // Clear tokens from localStorage
+    localStorage.removeItem('tokens');
+    // Redirect to accueil
+    navigate('/accueil');
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -126,6 +134,56 @@ const AssociationProfileForm = () => {
                 >
                   Contact
                 </a>
+              </li>
+              <li>
+                <button 
+                  onClick={handleLogout}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    fontSize: '1rem',
+                    padding: '0.5rem 1.5rem',
+                    borderRadius: '25px',
+                    transition: 'all 0.3s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                    ':hover': {
+                      background: 'rgba(255, 255, 255, 0.2)',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                    }
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
+                  }}
+                >
+                  <svg 
+                    width="16" 
+                    height="16" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                  </svg>
+                  Déconnexion
+                </button>
               </li>
             </ul>
           </nav>
